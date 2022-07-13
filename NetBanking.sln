@@ -15,7 +15,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetBanking.Core.Application
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetBanking.Core.Domain", "NetBanking.Core.Domain\NetBanking.Core.Domain.csproj", "{91692DD5-A59D-4BFD-986B-8DF3506AAF7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAdd.NetBanking", "WebAdd.NetBanking\WebAdd.NetBanking.csproj", "{52B1CED5-DA83-409B-8380-DD0A7ADFF575}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp.NetBanking", "WebAdd.NetBanking\WebApp.NetBanking.csproj", "{52B1CED5-DA83-409B-8380-DD0A7ADFF575}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetBanking.Infrastructure.Persistence", "NetBanking.Infrastructure.Persistence\NetBanking.Infrastructure.Persistence.csproj", "{15CF18AD-F4F7-47EC-9A28-054C8316C767}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetBanking.Insfrastructure.Shared", "NetBanking.Insfrastructure.Shared\NetBanking.Insfrastructure.Shared.csproj", "{8EE63574-AF5F-4FDC-89FE-59812766C6CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +39,14 @@ Global
 		{52B1CED5-DA83-409B-8380-DD0A7ADFF575}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52B1CED5-DA83-409B-8380-DD0A7ADFF575}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52B1CED5-DA83-409B-8380-DD0A7ADFF575}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15CF18AD-F4F7-47EC-9A28-054C8316C767}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15CF18AD-F4F7-47EC-9A28-054C8316C767}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15CF18AD-F4F7-47EC-9A28-054C8316C767}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15CF18AD-F4F7-47EC-9A28-054C8316C767}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EE63574-AF5F-4FDC-89FE-59812766C6CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EE63574-AF5F-4FDC-89FE-59812766C6CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EE63574-AF5F-4FDC-89FE-59812766C6CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EE63574-AF5F-4FDC-89FE-59812766C6CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +58,8 @@ Global
 		{C5CE698D-337D-4369-956B-28106BE3ACA6} = {F2133A04-E433-47C2-A5AB-181509AEFC8B}
 		{91692DD5-A59D-4BFD-986B-8DF3506AAF7B} = {F2133A04-E433-47C2-A5AB-181509AEFC8B}
 		{52B1CED5-DA83-409B-8380-DD0A7ADFF575} = {1FD04527-ED8F-45E5-8A4B-F9D994BFC675}
+		{15CF18AD-F4F7-47EC-9A28-054C8316C767} = {510996F5-4A5F-40A3-BE98-33B2F35B61FA}
+		{8EE63574-AF5F-4FDC-89FE-59812766C6CC} = {510996F5-4A5F-40A3-BE98-33B2F35B61FA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6175E31B-0F3B-4431-92C3-C4C3EB5D35D2}
