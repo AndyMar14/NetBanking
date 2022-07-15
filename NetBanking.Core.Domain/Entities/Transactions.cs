@@ -1,0 +1,22 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace NetBanking.Core.Domain.Entities
+{
+    public class Transactions
+    {
+        public int Id { get; set; }
+        public int IdUser { get; set; }
+        public int IdRecipient { get; set; }
+        public int Type { get; set; }
+        public double Monto { get; set; }
+        public DateTime Fecha { get; set; }
+
+        //NAVIGATION PROPERTIES
+        public Producs ProducFrom { get; set; }
+        public Producs ProducTo { get; set; }
+    }
+}
