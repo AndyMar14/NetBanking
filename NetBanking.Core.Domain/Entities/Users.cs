@@ -16,7 +16,7 @@ namespace NetBanking.Core.Domain.Entities
         public string Password { get; set; }
 
         //NAVIGATION PROPERTIES
-        public ICollection<Producs> Producs { get; set; }
+        public ICollection<Products> Products { get; set; }
         public ICollection<Recipients> Recipients { get; set; }
     }
 }

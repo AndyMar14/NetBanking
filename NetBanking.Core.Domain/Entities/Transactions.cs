@@ -16,7 +16,7 @@ namespace NetBanking.Core.Domain.Entities
         public DateTime Fecha { get; set; }
 
         //NAVIGATION PROPERTIES
-        public Producs ProducFrom { get; set; }
-        public Producs ProducTo { get; set; }
+        public Products ProductFrom { get; set; }
+        public Products ProducTo { get; set; }
     }
 }

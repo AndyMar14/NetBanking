@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace NetBanking.Core.Domain.Entities
 {
-    public class Producs
+    public class Products
     {
         public int Id { get; set; }
         public int IdUser { get; set; }
-        public int MainProduc { get; set; }
+        public int MainProduct { get; set; }
         public int IdProducType { get; set; }
         public string Password { get; set; }
         public double Limit { get; set; }
@@ -20,7 +20,7 @@ namespace NetBanking.Core.Domain.Entities
         //NAVIGATION PROPERTIES
 
         public Users User { get; set; }
-        public BankProducs Produc { get; set; }
+        public BankProducts Produc { get; set; }
         public ICollection<Transactions> Transactions { get; set; }
     }
 }
