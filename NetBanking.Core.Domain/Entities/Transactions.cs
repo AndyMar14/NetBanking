@@ -9,8 +9,8 @@ namespace NetBanking.Core.Domain.Entities
     public class Transactions
     {
         public int Id { get; set; }
-        public int IdUser { get; set; }
-        public int IdRecipient { get; set; }
+        public int IdUserProduct { get; set; }
+        public int IdRecipientProduct { get; set; }
         public int Type { get; set; }
         public double Monto { get; set; }
         public DateTime Fecha { get; set; }
