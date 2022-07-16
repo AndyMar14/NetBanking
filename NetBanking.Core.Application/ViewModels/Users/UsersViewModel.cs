@@ -1,4 +1,5 @@
 ﻿using NetBanking.Core.Application.ViewModels.Products;
+using NetBanking.Core.Application.ViewModels.Recipients;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,19 +18,10 @@ namespace NetBanking.Core.Application.ViewModels.Users
         public string Email { get; set; }
         public string Identification { get; set; }
         public string Type { get; set; }
-        public string InitialAmount { get; set; }
         public string Phone { get; set; }
 
-
-        //Products
-
-        public int ProductId { get; set; }
-        public string ProductType { get; set; }
-        public int ProductIdentifier { get; set; }
-        public double CreditLimit { get; set; }
-        public double LoanAmount { get; set; }
-
-        public ProductsViewModel Products { get; set; }
+        public ICollection<ProductsViewModel> Products { get; set; }
+        public ICollection<RecipientsViewModel> Recipients { get; set; }
 
 
 

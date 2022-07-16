@@ -40,38 +40,10 @@ namespace NetBanking.Core.Application.ViewModels.Users
         [DataType(DataType.Text)]
         public string Identification { get; set; }
 
-        [Required(ErrorMessage = "Debe colocar el tipo de usuario")]
-        [DataType(DataType.Text)]
-        public string Type { get; set; }
-
-        [Required(ErrorMessage = "Debe colocar el monto inicial")]
-        [DataType(DataType.Currency)]
-        public string InitialAmount { get; set; }
-
-        [Required(ErrorMessage = "Debe colocar un telefono")]
-        [DataType(DataType.Text)]
+        [Required(ErrorMessage = "Debe colocar un teléfono")]
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$", ErrorMessage = "Este número no es válido")]
         public string Phone { get; set; }
-
-
-        //Products
-
-        public int ProductId { get; set; }
-
-        [Required(ErrorMessage = "Debe colocar un producto")]
-        [DataType(DataType.Text)]
-        public string ProductType { get; set; }
-
-        public int ProductIdentifier { get; set; }
-
-        [Required(ErrorMessage = "Debe colocar un límite para la tarjeta")]
-        [DataType(DataType.Currency)]
-        public double CreditLimit { get; set; }
-
-        [Required(ErrorMessage = "Debe colocar un límite para el préstamo")]
-        [DataType(DataType.Currency)]
-        public double LoanAmount { get; set; }
-
-
 
         public bool HasError { get; set; }
         public string Error { get; set; }

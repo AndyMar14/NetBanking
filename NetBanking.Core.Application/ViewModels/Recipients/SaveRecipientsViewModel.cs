@@ -5,17 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NetBanking.Core.Application.ViewModels.Beneficiaries
+namespace NetBanking.Core.Application.ViewModels.Recipients
 {
-    public class SaveBeneficiariesViewModel
+    public class SaveRecipientsViewModel
     {
         public int Id { get; set; }
         public int UserId { get; set; }
-        public int UserBeneficiaryId { get; set; }
-        public string BeneficiaryName { get; set; }
-        public string BeneficiaryLastName { get; set; }
 
         [Required(ErrorMessage = "Debe colocar la cuenta del beneficiario")]
-        public int AcountIdentifier { get; set; }
+        public int RecipientId { get; set; }
+
     }
 }

@@ -9,13 +9,14 @@ namespace NetBanking.Core.Application.ViewModels.Transactions
 {
     public class TransactionsViewModel
     {
-        public int SourceAccountId { get; set; }
-        public int SourceAccountIdentifier { get; set; }
-        public int TargetAccountId { get; set; }
-        public int TargetAccountIdentifier { get; set; }
+        public int UserProductId { get; set; }
+        public int RecipientProductId { get; set; }
+        public int Type { get; set; }
+        public DateTime Date { get; set; }
         public double Amount { get; set; }
 
-        public ProductsViewModel Products { get; set; }
+        public ProductsViewModel ProductFrom { get; set; }
+        public ProductsViewModel ProductTo { get; set; }
 
     }
 }

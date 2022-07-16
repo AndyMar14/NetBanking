@@ -16,7 +16,7 @@ namespace NetBanking.Core.Application.ViewModels.Payments.Beneficiary
         public int ProductIdentifier { get; set; }
         public double Amount { get; set; }
 
-        public BeneficiariesViewModel Beneficiaries { get; set; }
+        public RecipientsViewModel Beneficiaries { get; set; }
         public ProductsViewModel Products { get; set; }
     }
 }

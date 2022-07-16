@@ -10,15 +10,15 @@ namespace NetBanking.Core.Application.ViewModels.Transactions
     public class SaveTransactionsViewModel
     {
         public int Id { get; set; }
-        public int SourceAccountId { get; set; }
 
-        [Required(ErrorMessage = "Debe colocar la cuenta de origen")]
-        public int SourceAccountIdentifier { get; set; }
+        [Required(ErrorMessage = "Debe colocar la cuenta ")]
+        public int UserProductId { get; set; }
 
-        public int TargetAccountId { get; set; }
+        [Required(ErrorMessage = "Debe colocar la cuenta")]
+        public int RecipientProductId { get; set; }
+        public int Type { get; set; }
 
-        [Required(ErrorMessage = "Debe colocar la cuenta de destino")]
-        public int TargetAccountIdentifier { get; set; }
+        public DateTime Date { get; set; }
 
         [Required(ErrorMessage = "Debe colocar el monto")]
         [DataType(DataType.Currency)]
