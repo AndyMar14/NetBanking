@@ -21,6 +21,7 @@ namespace NetBanking.Core.Domain.Entities
 
         public Users User { get; set; }
         public BankProducts Produc { get; set; }
-        public ICollection<Transactions> Transactions { get; set; }
+        public ICollection<Transactions> TransactionsOut { get; set; }
+        public ICollection<Transactions> TransactionsIn { get; set; }
     }
 }
