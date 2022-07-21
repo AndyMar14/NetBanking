@@ -5,11 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Dtos\**" />
     <Compile Remove="ViewModels\**" />
-    <EmbeddedResource Remove="Dtos\**" />
     <EmbeddedResource Remove="ViewModels\**" />
-    <None Remove="Dtos\**" />
     <None Remove="ViewModels\**" />
   </ItemGroup>
 
@@ -28,10 +25,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NetBanking.Core.Domain\NetBanking.Core.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Dto\" />
   </ItemGroup>
 
   <ItemGroup>
