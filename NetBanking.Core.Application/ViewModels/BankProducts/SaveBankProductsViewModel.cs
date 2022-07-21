@@ -4,14 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NetBanking.Core.Domain.Entities
+namespace NetBanking.Core.Application.ViewModels.BankProducts
 {
-    public class BankProducts
+    public class SaveBankProductsViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
-
-        //NAVIGATION PROPERTIES
-        public ICollection<Products> Products { get; set; }
     }
 }
