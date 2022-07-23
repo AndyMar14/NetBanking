@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using NetBanking.Core.Application.Dtos.Account;
-using NetBanking.Core.Application.Interfaces.Repositories;
 using NetBanking.Core.Application.Interfaces.Services;
-using System.Collections.Generic;
+using NetBanking.Core.Application.ViewModels.Users;
 using System.Threading.Tasks;
 
 namespace Application.Services
@@ -18,7 +17,7 @@ namespace Application.Services
             _mapper = mapper;
         }
 
-        public async Task<AuthenticationResponse> LoginAsync(LoginViewModel vm)
+        public async Task<AuthenticationResponse> LoginAsync(LoginUsersViewModel vm)
         {
             AuthenticationRequest loginRequest = _mapper.Map<AuthenticationRequest>(vm);
             AuthenticationResponse userResponse = await _accountService.AuthenticateAsync(loginRequest);
@@ -29,7 +28,7 @@ namespace Application.Services
             await _accountService.SignOutAsync();
         }
 
-        public async Task<RegisterResponse> RegisterAsync(SaveUserViewModel vm, string origin)
+        public async Task<RegisterResponse> RegisterAsync(SaveUsersViewModel vm, string origin)
         {
             RegisterRequest registerRequest = _mapper.Map<RegisterRequest>(vm);
             return await _accountService.RegisterBasicUserAsync(registerRequest, origin);
@@ -40,7 +39,7 @@ namespace Application.Services
             return await _accountService.ConfirmAccountAsync(userId, token);
         }
 
-        public async Task<ForgotPasswordResponse> ForgotPasswordAsync(ForgotPasswordViewModel vm, string origin)
+        /*public async Task<ForgotPasswordResponse> ForgotPasswordAsync(ForgotPasswordViewModel vm, string origin)
         {
             ForgotPasswordRequest forgotRequest = _mapper.Map<ForgotPasswordRequest>(vm);
             return await _accountService.ForgotPasswordAsync(forgotRequest, origin);
@@ -50,6 +49,6 @@ namespace Application.Services
         {
             ResetPasswordRequest resetRequest = _mapper.Map<ResetPasswordRequest>(vm);
             return await _accountService.ResetPasswordAsync(resetRequest);
-        }
+        }*/
     }
 }

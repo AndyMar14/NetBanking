@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using NetBanking.Core.Application.Dtos.Account;
 using NetBanking.Core.Application.Helpers;
-using NetBanking.Core.Application.ViewModels.User;
+using NetBanking.Core.Application.ViewModels.Users;
 
 namespace WebApp.NetBanking.Middlewares
 {
