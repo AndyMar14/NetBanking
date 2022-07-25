@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace StockApp.Infrastructure.Identity.Seeds
+namespace NetBanking.Infrastructure.Identity.Seeds
 {
-    public static class DefaultSuperAdminUser
+    public static class DefaultAdminUser
     {
         public static async Task SeedAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
