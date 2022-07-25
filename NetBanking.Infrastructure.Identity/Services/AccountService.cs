@@ -29,11 +29,11 @@ namespace NetBanking.Infrastructure.Identity.Services
         {
             AuthenticationResponse response = new();
 
-            var user = await _userManager.FindByEmailAsync(request.Email);
+            var user = await _userManager.FindByNameAsync(request.UserName);
             if (user == null)
             {
                 response.HasError = true;
-                response.Error = $"No Hay Usuario Registrado Con Este Correo: {request.Email}";
+                response.Error = $"No Hay Usuario Registrado Con Este Usuario: {request.UserName}";
                 return response;
             }
 
@@ -41,13 +41,13 @@ namespace NetBanking.Infrastructure.Identity.Services
             if (!result.Succeeded)
             {
                 response.HasError = true;
-                response.Error = $"Credenciales Invalidas {request.Email}";
+                response.Error = $"Credenciales Invalidas {request.UserName}";
                 return response;
             }
             if (!user.EmailConfirmed)
             {
                 response.HasError = true;
-                response.Error = $"La Cuenta Con El Correo {request.Email} No esta Confirmada";
+                response.Error = $"La Cuenta Con El usuario {request.UserName} No esta Confirmada";
                 return response;
             }
 

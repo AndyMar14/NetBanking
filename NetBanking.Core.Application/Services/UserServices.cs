@@ -39,7 +39,7 @@ namespace Application.Services
             return await _accountService.ConfirmAccountAsync(userId, token);
         }
 
-        /*public async Task<ForgotPasswordResponse> ForgotPasswordAsync(ForgotPasswordViewModel vm, string origin)
+        public async Task<ForgotPasswordResponse> ForgotPasswordAsync(ForgotPasswordViewModel vm, string origin)
         {
             ForgotPasswordRequest forgotRequest = _mapper.Map<ForgotPasswordRequest>(vm);
             return await _accountService.ForgotPasswordAsync(forgotRequest, origin);
@@ -49,6 +49,6 @@ namespace Application.Services
         {
             ResetPasswordRequest resetRequest = _mapper.Map<ResetPasswordRequest>(vm);
             return await _accountService.ResetPasswordAsync(resetRequest);
-        }*/
+        }
     }
 }

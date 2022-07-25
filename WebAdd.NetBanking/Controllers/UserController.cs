@@ -86,7 +86,7 @@ namespace WebApp.NetBanking.Controllers
             return View("ConfirmEmail", response);
         }
 
-        /* [ServiceFilter(typeof(LoginAuthorize))]
+        [ServiceFilter(typeof(LoginAuthorize))]
         public IActionResult ForgotPassword()
         {
             return View(new ForgotPasswordViewModel());
@@ -111,7 +111,7 @@ namespace WebApp.NetBanking.Controllers
             return RedirectToRoute(new { controller = "User", action = "Index" });
         }
 
-       [ServiceFilter(typeof(LoginAuthorize))]
+        [ServiceFilter(typeof(LoginAuthorize))]
         public IActionResult ResetPassword(string token)
         {
             return View(new ResetPasswordViewModel { Token = token });
@@ -134,7 +134,7 @@ namespace WebApp.NetBanking.Controllers
                 return View(vm);
             }
             return RedirectToRoute(new { controller = "User", action = "Index" });
-        }*/
+        }
 
         public IActionResult AccessDenied()
         {

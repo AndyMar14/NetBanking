@@ -16,7 +16,9 @@ namespace NetBanking.Infrastructure.Persistence
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             #region Services
-            services.AddTransient(typeof(IGenericService<,,>), typeof(GenericService<,,>));
+
+            services.AddTransient(typeof(IGenericServices<,,>), typeof(GenericServices<,,>));
+            services.AddTransient<IUserServices, UserServices>();
             services.AddTransient<ITransactionsService, TransactionsService>();
 
             #endregion
