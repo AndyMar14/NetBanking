@@ -5,11 +5,14 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NetBanking.Infrastructure.Identity;
 using NetBanking.Infrastructure.Persistence;
+using SocialNetwork.Infrastructure.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApp.NetBanking.Middlewares;
 
 namespace WebAdd.NetBanking
 {
@@ -27,12 +30,14 @@ namespace WebAdd.NetBanking
         {
             services.AddSession();
             services.AddPersistenceInfrastructure(Configuration);
-            //services.AddIdentityInfrastructure(Configuration);
+            services.AddIdentityInfrastructure(Configuration);
             services.AddApplicationLayer(Configuration);
-            //services.AddSharedInfrastructure(Configuration);
+            services.AddSharedInfrastructure(Configuration);
 
             services.AddControllersWithViews();
+            services.AddScoped<LoginAuthorize>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<ValidateUserSession, ValidateUserSession>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,13 +59,14 @@ namespace WebAdd.NetBanking
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=User}/{action=Index}/{id?}");
             });
         }
     }

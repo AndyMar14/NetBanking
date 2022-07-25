@@ -1,5 +1,5 @@
-﻿using NetBanking.Core.Application.ViewModels.Beneficiaries;
-using NetBanking.Core.Application.ViewModels.Products;
+﻿using NetBanking.Core.Application.ViewModels.Products;
+using NetBanking.Core.Application.ViewModels.Recipients;
 using System;
 using System.Collections.Generic;
 using System.Linq;
