@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NetBanking.Core.Application.Interfaces.Repositories;
 using NetBanking.Infrastructure.Persistence.Contexts;
+using NetBanking.Infrastructure.Persistence.Repositories;
 
 namespace NetBanking.Infrastructure.Persistence
 {
@@ -31,6 +32,7 @@ namespace NetBanking.Infrastructure.Persistence
 
             #region Repositories
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddTransient<ITransactionsRepository, TransactionsRepository>();
             #endregion
         }
     }
