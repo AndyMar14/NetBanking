@@ -4,9 +4,9 @@ using NetBanking.Core.Application.Interfaces.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Application.Services
+namespace NetBanking.Core.Application.Services
 {
-    public class GenericServices<SaveViewModel, ViewModel, Model> : IGenericServices<SaveViewModel, ViewModel, Model>
+    public class GenericService<SaveViewModel, ViewModel, Model> : IGenericService<SaveViewModel, ViewModel, Model>
         where SaveViewModel : class
         where ViewModel : class
         where Model : class
@@ -14,7 +14,7 @@ namespace Application.Services
         private readonly IGenericRepository<Model> _repository;
         private readonly IMapper _mapper;
 
-        public GenericServices(IGenericRepository<Model> repository, IMapper mapper)
+        public GenericService(IGenericRepository<Model> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;

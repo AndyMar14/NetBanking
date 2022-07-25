@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NetBanking.Core.Application.Interfaces.Repositories;
 using NetBanking.Core.Application.Interfaces.Services;
+using NetBanking.Core.Application.Services;
 using System.Reflection;
 
 namespace NetBanking.Infrastructure.Persistence
@@ -15,7 +16,9 @@ namespace NetBanking.Infrastructure.Persistence
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             #region Services
-            services.AddTransient(typeof(IGenericServices<,,>), typeof(GenericServices<,,>));
+            services.AddTransient(typeof(IGenericService<,,>), typeof(GenericService<,,>));
+            services.AddTransient<ITransactionsService, TransactionsService>();
+
             #endregion
         }
     }
