@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace NetBanking.Core.Application.Interfaces.Services
 {
-    public interface IGenericServices<SaveViewModel, ViewModel, Model>
+    public interface IGenericService<SaveViewModel, ViewModel, Model>
         where SaveViewModel : class
         where ViewModel : class
         where Model : class
