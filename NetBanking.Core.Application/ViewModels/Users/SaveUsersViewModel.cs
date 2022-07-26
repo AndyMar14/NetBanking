@@ -1,4 +1,6 @@
-﻿using System;
+﻿using NetBanking.Core.Application.Enums;
+using NetBanking.Core.Application.ViewModels.Roles;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -19,6 +21,11 @@ namespace NetBanking.Core.Application.ViewModels.Users
         [DataType(DataType.Text)]
         public string LastName { get; set; }
 
+        [Required(ErrorMessage = "Debe colocar el numero de Cedula")]
+        [DataType(DataType.Text)]
+        public string Cedula { get; set; }
+
+
         [Required(ErrorMessage = "Debe colocar un nombre de usuario")]
         [DataType(DataType.Text)]
         public string Username { get; set; }
@@ -36,6 +43,11 @@ namespace NetBanking.Core.Application.ViewModels.Users
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
+
+        [Required(ErrorMessage = "Debe colocar un rol al usuario")]
+        [DataType(DataType.Text)]
+        public string  rolId { get; set; }
+
         [Required(ErrorMessage = "Debe colocar su número de identificación")]
         [DataType(DataType.Text)]
         public string Identification { get; set; }
@@ -44,6 +56,9 @@ namespace NetBanking.Core.Application.ViewModels.Users
         [DataType(DataType.PhoneNumber)]
         [RegularExpression(@"^\(?([0-9]{3})\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$", ErrorMessage = "Este número no es válido")]
         public string Phone { get; set; }
+
+
+        public List<RolesViewModel> Roles { get; set; }
 
         public bool HasError { get; set; }
         public string Error { get; set; }

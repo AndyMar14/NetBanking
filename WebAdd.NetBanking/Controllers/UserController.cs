@@ -5,9 +5,11 @@ using NetBanking.Core.Application.Interfaces.Services;
 using NetBanking.Core.Application.Dtos.Account;
 using WebApp.NetBanking.Middlewares;
 using NetBanking.Core.Application.ViewModels.Users;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApp.NetBanking.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
         private readonly IUserServices _userServices;
@@ -17,7 +19,7 @@ namespace WebApp.NetBanking.Controllers
             _userServices = userService;
         }
 
-        [ServiceFilter(typeof(LoginAuthorize))]
+        [HttpGet]
         public IActionResult Index()
         {
             return View(new LoginUsersViewModel());
@@ -54,15 +56,16 @@ namespace WebApp.NetBanking.Controllers
             return RedirectToRoute(new { controller = "User", action = "Index" });
         }
 
-        [ServiceFilter(typeof(LoginAuthorize))]
-        public IActionResult Register()
+        [HttpGet]
+        public async Task<IActionResult> RegisterUser()
         {
-            return View(new SaveUsersViewModel());
+            SaveUsersViewModel vm = new();
+            vm.Roles = await _userServices.GetAllRoles();
+            return View(vm);
         }
 
-        [ServiceFilter(typeof(LoginAuthorize))]
         [HttpPost]
-        public async Task<IActionResult> Register(SaveUsersViewModel vm)
+        public async Task<IActionResult> RegisterUser(SaveUsersViewModel vm)
         {
             if (!ModelState.IsValid)
             {

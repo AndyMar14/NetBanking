@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore;
 using NetBanking.Core.Application.Dtos.Account;
 using NetBanking.Core.Application.Enums;
 using NetBanking.Core.Application.Interfaces.Services;
+using NetBanking.Core.Application.ViewModels.Roles;
 using NetBanking.Infrastructure.Identity.Entities;
 using System;
 using System.Collections.Generic;
@@ -15,13 +17,15 @@ namespace NetBanking.Infrastructure.Identity.Services
     public class AccountService : IAccountService
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailServices _emailService;
 
-        public AccountService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IEmailServices emailService)
+        public AccountService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IEmailServices emailService, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
             _emailService = emailService;
         }
 
@@ -218,6 +222,20 @@ namespace NetBanking.Infrastructure.Identity.Services
             var verificationUri = QueryHelpers.AddQueryString(Uri.ToString(), "token", code);
 
             return verificationUri;
+        }
+
+        public async Task<List<RolesViewModel>> GetAllRoles()
+        {
+            var rolesList = await _roleManager.Roles.ToListAsync();
+            List<RolesViewModel> roles  = new();
+            rolesList.ForEach(item => roles.Add(
+                new RolesViewModel()
+                {
+                    Id = item.Id,
+                    Name = item.Name
+                }
+            ));
+            return roles;
         }
     }
 
