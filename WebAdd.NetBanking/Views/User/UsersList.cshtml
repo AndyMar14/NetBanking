@@ -7,8 +7,7 @@
                 <tr>
                     <th>Nombre</th>
                     <th>Apellido</th>
-                    <th>@*Cedula*@</th>
-                    <th>Correo</th>
+                    <th>Email</th>
                     <th>
                         <button type="button" class="btn btn-info btn-sm" onclick="location.href='@Url.Action("RegisterUser", "User")'">Nuevo</button>
                     </th>
@@ -22,8 +21,16 @@
                     <td>@user.LastName</td>
                     <td>@user.Email</td>
                     <td>
-                        @foreach (string role in user.Type) { 
-                            <label>@role,</label>
+                        @foreach (string role in user.Type)
+                        {
+                            @if (role == "Admin")
+                            {
+                                <label style="background-color: red;border-radius: 50%;padding: 5px;">@role</label>
+                            }
+                            else if (role == "Client")
+                            {
+                                <label style="background-color: cadetblue;border-radius: 50%;padding: 5px;">@role</label>
+                            }
                         }
                     </td>
                     @*<td>@user.Identification</td>*@
