@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore;
 using NetBanking.Core.Application.Dtos.Account;
 using NetBanking.Core.Application.Enums;
 using NetBanking.Core.Application.Interfaces.Services;
+using NetBanking.Core.Application.ViewModels.Roles;
 using NetBanking.Infrastructure.Identity.Entities;
 using System;
 using System.Collections.Generic;
@@ -15,13 +17,15 @@ namespace NetBanking.Infrastructure.Identity.Services
     public class AccountService : IAccountService
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailServices _emailService;
 
-        public AccountService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IEmailServices emailService)
+        public AccountService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IEmailServices emailService, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
             _emailService = emailService;
         }
 
@@ -100,18 +104,7 @@ namespace NetBanking.Infrastructure.Identity.Services
             };
 
             var result = await _userManager.CreateAsync(user, request.Password);
-            if (result.Succeeded)
-            {
-                await _userManager.AddToRoleAsync(user, Roles.Client.ToString());
-                var verificationUri = await SendVerificationEmailUri(user, origin);
-                await _emailService.SendAsync(new Core.Application.DTOs.Email.EmailRequest()
-                {
-                    To = user.Email,
-                    Body = $"Please confirm your account visiting this URL {verificationUri}",
-                    Subject = "Confirm registration"
-                });
-            }
-            else
+            if (!result.Succeeded)
             {
                 response.HasError = true;
                 response.Error = $"An error occurred trying to register the user.";
@@ -218,6 +211,20 @@ namespace NetBanking.Infrastructure.Identity.Services
             var verificationUri = QueryHelpers.AddQueryString(Uri.ToString(), "token", code);
 
             return verificationUri;
+        }
+
+        public async Task<List<RolesViewModel>> GetAllRoles()
+        {
+            var rolesList = await _roleManager.Roles.ToListAsync();
+            List<RolesViewModel> roles  = new();
+            rolesList.ForEach(item => roles.Add(
+                new RolesViewModel()
+                {
+                    Id = item.Id,
+                    Name = item.Name
+                }
+            ));
+            return roles;
         }
     }
 

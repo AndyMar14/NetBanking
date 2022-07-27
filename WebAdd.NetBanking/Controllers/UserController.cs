@@ -5,9 +5,11 @@ using NetBanking.Core.Application.Interfaces.Services;
 using NetBanking.Core.Application.Dtos.Account;
 using WebApp.NetBanking.Middlewares;
 using NetBanking.Core.Application.ViewModels.Users;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApp.NetBanking.Controllers
 {
+    
     public class UserController : Controller
     {
         private readonly IUserServices _userServices;
@@ -18,6 +20,7 @@ namespace WebApp.NetBanking.Controllers
         }
 
         [ServiceFilter(typeof(LoginAuthorize))]
+        [HttpGet]
         public IActionResult Index()
         {
             return View(new LoginUsersViewModel());
@@ -54,24 +57,29 @@ namespace WebApp.NetBanking.Controllers
             return RedirectToRoute(new { controller = "User", action = "Index" });
         }
 
-        [ServiceFilter(typeof(LoginAuthorize))]
-        public IActionResult Register()
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public async Task<IActionResult> RegisterUser()
         {
-            return View(new SaveUsersViewModel());
+            SaveUsersViewModel vm = new();
+            vm.Roles = await _userServices.GetAllRoles();
+            return View(vm);
         }
 
-        [ServiceFilter(typeof(LoginAuthorize))]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<IActionResult> Register(SaveUsersViewModel vm)
+        public async Task<IActionResult> RegisterUser(SaveUsersViewModel vm)
         {
             if (!ModelState.IsValid)
             {
+                vm.Roles = await _userServices.GetAllRoles();
                 return View(vm);
             }
             var origin = Request.Headers["origin"];
             RegisterResponse response = await _userServices.RegisterAsync(vm, origin);
             if (response.HasError)
             {
+                vm.Roles = await _userServices.GetAllRoles();
                 vm.HasError = response.HasError;
                 vm.Error = response.Error;
                 return View(vm);

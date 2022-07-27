@@ -1,5 +1,7 @@
 ﻿using NetBanking.Core.Application.Dtos.Account;
+using NetBanking.Core.Application.ViewModels.Roles;
 using NetBanking.Core.Application.ViewModels.Users;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace NetBanking.Core.Application.Interfaces.Services
@@ -12,5 +14,6 @@ namespace NetBanking.Core.Application.Interfaces.Services
         Task<RegisterResponse> RegisterAsync(SaveUsersViewModel vm, string origin);
         Task<ResetPasswordResponse> ResetPasswordAsync(ResetPasswordViewModel vm);
         Task SignOutAsync();
+        Task<List<RolesViewModel>> GetAllRoles();
     }
 }
