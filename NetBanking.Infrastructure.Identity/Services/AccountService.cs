@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using NetBanking.Core.Application.Dtos.Account;
 using NetBanking.Core.Application.Enums;
 using NetBanking.Core.Application.Interfaces.Services;
+using NetBanking.Core.Application.ViewModels.Roles;
 using NetBanking.Core.Application.ViewModels.Users;
 using NetBanking.Infrastructure.Identity.Entities;
 using System;
@@ -17,6 +18,7 @@ namespace NetBanking.Infrastructure.Identity.Services
     public class AccountService : IAccountService
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IEmailServices _emailService;
@@ -25,6 +27,7 @@ namespace NetBanking.Infrastructure.Identity.Services
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
             _emailService = emailService;
             _roleManager = roleManager;
         }
@@ -120,18 +123,7 @@ namespace NetBanking.Infrastructure.Identity.Services
             };
 
             var result = await _userManager.CreateAsync(user, request.Password);
-            if (result.Succeeded)
-            {
-                await _userManager.AddToRoleAsync(user, Roles.Client.ToString());
-                var verificationUri = await SendVerificationEmailUri(user, origin);
-                await _emailService.SendAsync(new Core.Application.DTOs.Email.EmailRequest()
-                {
-                    To = user.Email,
-                    Body = $"Please confirm your account visiting this URL {verificationUri}",
-                    Subject = "Confirm registration"
-                });
-            }
-            else
+            if (!result.Succeeded)
             {
                 response.HasError = true;
                 response.Error = $"An error occurred trying to register the user.";
@@ -238,6 +230,20 @@ namespace NetBanking.Infrastructure.Identity.Services
             var verificationUri = QueryHelpers.AddQueryString(Uri.ToString(), "token", code);
 
             return verificationUri;
+        }
+
+        public async Task<List<RolesViewModel>> GetAllRoles()
+        {
+            var rolesList = await _roleManager.Roles.ToListAsync();
+            List<RolesViewModel> roles  = new();
+            rolesList.ForEach(item => roles.Add(
+                new RolesViewModel()
+                {
+                    Id = item.Id,
+                    Name = item.Name
+                }
+            ));
+            return roles;
         }
     }
 

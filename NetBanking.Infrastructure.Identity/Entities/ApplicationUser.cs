@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using NetBanking.Core.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,7 @@ namespace NetBanking.Infrastructure.Identity.Entities
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string Identification { get; set; }
+        public string MontoInicial { get; set; }
     }
 }
