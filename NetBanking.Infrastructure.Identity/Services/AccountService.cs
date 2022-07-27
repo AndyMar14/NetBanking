@@ -70,18 +70,21 @@ namespace NetBanking.Infrastructure.Identity.Services
         public async Task<List<UsersViewModel>> GetUsersAsync()
         {
             var listaUsuarios = await _userManager.Users.ToListAsync();
-            var lista = listaUsuarios.Select(async user => new UsersViewModel
-            {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Email = user.Email,
-                Type = await _roleManager.Roles.Where(x => x.Id == user.Id).Select(role => new RoleViewModel
-                {
-                    Name = role.Name
-                }).ToListAsync()
-            }).ToList();
+            List<UsersViewModel> users = new();
 
-            return lista;
+            listaUsuarios.ForEach(async user => users.Add(
+                new UsersViewModel
+                {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email,
+                    Type = await _roleManager.Roles.Where(x => x.Id == user.Id).Select(role => new RoleViewModel
+                    {
+                        Name = role.Name
+                    }).ToListAsync()
+                }
+            ));
+            return users;
         }
         public async Task<RegisterResponse> RegisterBasicUserAsync(RegisterRequest request, string origin)
         {
