@@ -62,7 +62,6 @@ namespace NetBanking.Core.Application.Services
             {
                 UserId = products.User.Id,
                 MainProduct = products.MainProduct,
-                ProductTypeId = products.bankProduct.Id,
                 ProductIdentifier = products.Identifier,
                 CreditLimit = products.Limit,
                 LoanAmount = products.Monto,
