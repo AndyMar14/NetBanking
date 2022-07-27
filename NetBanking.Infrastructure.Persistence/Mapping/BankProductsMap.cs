@@ -17,6 +17,24 @@ namespace NetBanking.Infrastructure.Persistence.Mapping
                 .WithOne(p => p.Produc)
                 .HasForeignKey(p => p.IdProducType)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasData(new BankProducts
+            {
+                Id = 1,
+                Name = "Cuenta de ahorro"
+            });
+
+            builder.HasData(new BankProducts
+            {
+                Id = 2,
+                Name = "Tarjeta de crédito"
+            });
+
+            builder.HasData(new BankProducts
+            {
+                Id = 3,
+                Name = "Préstamo"
+            });
         }
     }
 }

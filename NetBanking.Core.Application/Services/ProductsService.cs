@@ -68,5 +68,13 @@ namespace NetBanking.Core.Application.Services
                 Balance = products.Balance
             }).ToList();
         }
+
+        public async Task<string> GenerateSequence()
+        {
+            var productsList = await _productsRepository.GetAllAsync();
+            string LastProductSequence = productsList.OrderByDescending(x => x.Id).ThenByDescending(x => x.Id).FirstOrDefault().Identifier;
+            //LastProduct = productsList.
+            return "";
+        }
     }
 }

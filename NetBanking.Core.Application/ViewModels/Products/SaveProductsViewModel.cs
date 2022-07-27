@@ -10,7 +10,7 @@ namespace NetBanking.Core.Application.ViewModels.Products
     public class SaveProductsViewModel
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         [Required(ErrorMessage = "Debe colocar el producto")]
         public int MainProduct { get; set; }

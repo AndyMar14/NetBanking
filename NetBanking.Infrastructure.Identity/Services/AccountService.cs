@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using NetBanking.Core.Application.Dtos.Account;
 using NetBanking.Core.Application.Enums;
 using NetBanking.Core.Application.Interfaces.Services;
+using NetBanking.Core.Application.ViewModels.Products;
 using NetBanking.Core.Application.ViewModels.Roles;
 using NetBanking.Core.Application.ViewModels.Users;
 using NetBanking.Infrastructure.Identity.Entities;
@@ -20,14 +21,16 @@ namespace NetBanking.Infrastructure.Identity.Services
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IProductsService _productsService;
         private readonly IEmailServices _emailService;
 
-        public AccountService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, IEmailServices emailService)
+        public AccountService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, IEmailServices emailService, IProductsService productsService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _emailService = emailService;
+            _productsService = productsService;
         }
 
         public async Task<AuthenticationResponse> AuthenticateAsync(AuthenticationRequest request)
@@ -118,6 +121,19 @@ namespace NetBanking.Infrastructure.Identity.Services
             };
 
             var result = await _userManager.CreateAsync(user, request.Password);
+            userWithSameUserName = await _userManager.FindByIdAsync(user.Id);
+
+            SaveProductsViewModel product = new();
+            product.UserId = userWithSameUserName.Id;
+            product.MainProduct = 1;
+            product.ProductTypeId = 1;
+            product.CreditLimit = 0;
+            product.LoanAmount = 0;
+            product.ProductIdentifier = PadLeft();
+
+
+            await _productsService.Add(product);
+            
             if (!result.Succeeded)
             {
                 response.HasError = true;
