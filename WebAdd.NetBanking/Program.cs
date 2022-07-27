@@ -28,9 +28,10 @@ namespace WebAdd.NetBanking
                     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
                     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
-                    await DefaultClientUser.SeedAsync(userManager, roleManager);
-                    await DefaultAdminUser.SeedAsync(userManager, roleManager);
                     await DefaultRoles.SeedAsync(userManager, roleManager);
+                    await DefaultAdminUser.SeedAsync(userManager, roleManager);
+                    await DefaultClientUser.SeedAsync(userManager, roleManager);
+                
                 }
                 catch(Exception ex)
                 {
