@@ -5,16 +5,20 @@ using NetBanking.Core.Application.Interfaces.Services;
 using NetBanking.Core.Application.Dtos.Account;
 using WebApp.NetBanking.Middlewares;
 using NetBanking.Core.Application.ViewModels.Users;
+using NetBanking.Infrastructure.Persistence.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApp.NetBanking.Controllers
 {
     public class UserController : Controller
     {
         private readonly IUserServices _userServices;
+        private readonly IdentityContext _identityContext;
 
-        public UserController(IUserServices userService)
+        public UserController(IUserServices userService, IdentityContext context)
         {
             _userServices = userService;
+            _identityContext = context;
         }
 
         [ServiceFilter(typeof(LoginAuthorize))]
@@ -45,7 +49,12 @@ namespace WebApp.NetBanking.Controllers
                 return View(vm);
             }
         }
-
+        public IActionResult UsersList()
+        {
+            ViewBag.usuarios = _userServices.GetAllUsersAsync();
+          
+            return View();
+        }
 
         public async Task<IActionResult> LogOut()
         {

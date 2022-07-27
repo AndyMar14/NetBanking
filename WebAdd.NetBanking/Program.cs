@@ -30,6 +30,7 @@ namespace WebAdd.NetBanking
 
                     await DefaultClientUser.SeedAsync(userManager, roleManager);
                     await DefaultAdminUser.SeedAsync(userManager, roleManager);
+                    await DefaultRoles.SeedAsync(userManager, roleManager);
                 }
                 catch(Exception ex)
                 {
