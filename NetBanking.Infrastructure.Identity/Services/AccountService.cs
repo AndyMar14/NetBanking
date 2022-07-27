@@ -20,7 +20,6 @@ namespace NetBanking.Infrastructure.Identity.Services
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IEmailServices _emailService;
 
         public AccountService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, IEmailServices emailService)
@@ -29,7 +28,6 @@ namespace NetBanking.Infrastructure.Identity.Services
             _signInManager = signInManager;
             _roleManager = roleManager;
             _emailService = emailService;
-            _roleManager = roleManager;
         }
 
         public async Task<AuthenticationResponse> AuthenticateAsync(AuthenticationRequest request)
