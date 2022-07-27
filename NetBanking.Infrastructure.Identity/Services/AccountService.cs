@@ -20,14 +20,16 @@ namespace NetBanking.Infrastructure.Identity.Services
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IEmailServices _emailService;
 
-        public AccountService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IEmailServices emailService, RoleManager<IdentityRole> roleManager)
+        public AccountService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, IEmailServices emailService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _emailService = emailService;
+            _roleManager = roleManager;
         }
 
         public async Task<AuthenticationResponse> AuthenticateAsync(AuthenticationRequest request)
@@ -76,12 +78,15 @@ namespace NetBanking.Infrastructure.Identity.Services
         public async Task<List<UsersViewModel>> GetUsersAsync()
         {
             var listaUsuarios = await _userManager.Users.ToListAsync();
-            var lista = listaUsuarios.Select(user => new UsersViewModel
+            var lista = listaUsuarios.Select(async user => new UsersViewModel
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
-                Type = _userManager.GetRolesAsync(user)
+                Type = await _roleManager.Roles.Where(x => x.Id == user.Id).Select(role => new RoleViewModel
+                {
+                    Name = role.Name
+                }).ToListAsync()
             }).ToList();
 
             return lista;
