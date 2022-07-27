@@ -5,6 +5,7 @@ using NetBanking.Core.Application.Dtos.Account;
 using NetBanking.Core.Application.Enums;
 using NetBanking.Core.Application.Interfaces.Services;
 using NetBanking.Core.Application.ViewModels.Roles;
+using NetBanking.Core.Application.ViewModels.Users;
 using NetBanking.Infrastructure.Identity.Entities;
 using System;
 using System.Collections.Generic;
@@ -72,6 +73,19 @@ namespace NetBanking.Infrastructure.Identity.Services
             await _signInManager.SignOutAsync();
         }
 
+        public async Task<List<UsersViewModel>> GetUsersAsync()
+        {
+            var listaUsuarios = await _userManager.Users.ToListAsync();
+            var lista = listaUsuarios.Select(user => new UsersViewModel
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                Type = _userManager.GetRolesAsync(user)
+            }).ToList();
+
+            return lista;
+        }
         public async Task<RegisterResponse> RegisterBasicUserAsync(RegisterRequest request, string origin)
         {
             RegisterResponse response = new()

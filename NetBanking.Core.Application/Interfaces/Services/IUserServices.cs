@@ -8,6 +8,7 @@ namespace NetBanking.Core.Application.Interfaces.Services
 {
     public interface IUserServices
     {
+        Task<List<UsersViewModel>> GetAllUsersAsync();
         Task<string> ConfirmEmailAsync(string userId, string token);
         Task<ForgotPasswordResponse> ForgotPasswordAsync(ForgotPasswordViewModel vm, string origin);
         Task<AuthenticationResponse> LoginAsync(LoginUsersViewModel vm);

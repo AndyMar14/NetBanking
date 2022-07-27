@@ -30,6 +30,11 @@ namespace Application.Services
             await _accountService.SignOutAsync();
         }
 
+        public async Task<List<UsersViewModel>> GetAllUsersAsync()
+        {
+            var lista = await _accountService.GetUsersAsync();
+            return lista;
+        }
         public async Task<RegisterResponse> RegisterAsync(SaveUsersViewModel vm, string origin)
         {
             RegisterRequest registerRequest = _mapper.Map<RegisterRequest>(vm);
