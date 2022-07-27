@@ -49,12 +49,6 @@ namespace NetBanking.Infrastructure.Identity.Services
                 response.Error = $"Credenciales Invalidas {request.UserName}";
                 return response;
             }
-            if (!user.EmailConfirmed)
-            {
-                response.HasError = true;
-                response.Error = $"La Cuenta Con El usuario {request.UserName} No esta Confirmada";
-                return response;
-            }
 
             response.Id = user.Id;
             response.Email = user.Email;
