@@ -17,7 +17,7 @@ namespace NetBanking.Core.Application.ViewModels.Users
         public string ConfirmPassword { get; set; }
         public string Email { get; set; }
         public string Identification { get; set; }
-        public Task<IList<String>> Type { get; set; }
+        public List<RoleViewModel> Type { get; set; }
         public string Phone { get; set; }
         public string Role { get; set; }
 

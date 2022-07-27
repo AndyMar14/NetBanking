@@ -52,9 +52,9 @@ namespace WebApp.NetBanking.Controllers
                 return View(vm);
             }
         }
-        public IActionResult UsersList()
+        public async Task<IActionResult> UsersList()
         {
-            ViewBag.usuarios = _userServices.GetAllUsersAsync();
+            ViewBag.usuarios = await _userServices.GetAllUsersAsync();
           
             return View();
         }
