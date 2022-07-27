@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using NetBanking.Core.Application.Dtos.Account;
 using NetBanking.Core.Application.Interfaces.Services;
+using NetBanking.Core.Application.ViewModels.Roles;
 using NetBanking.Core.Application.ViewModels.Users;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -55,6 +56,11 @@ namespace Application.Services
         {
             ResetPasswordRequest resetRequest = _mapper.Map<ResetPasswordRequest>(vm);
             return await _accountService.ResetPasswordAsync(resetRequest);
+        }
+
+        public async Task<List<RolesViewModel>> GetAllRoles()
+        {
+            return await _accountService.GetAllRoles();
         }
     }
 }

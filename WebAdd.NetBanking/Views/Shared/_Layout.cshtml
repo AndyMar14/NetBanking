@@ -6,7 +6,7 @@
 @{
     var User = httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>("user");
     var isAdmin = User != null ? User.Roles.Any(r => r == "Admin") : false;
-    var isClient = User != null ? User.Roles.Any(r => r == "Basic") : false;
+    var isClient = User != null ? User.Roles.Any(r => r == "Client") : false;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -32,11 +32,26 @@
                         {
                             if (isClient)
                             {
+                                <li class="nav-item" >
+                                    <li data-toggle="dropdown" class="nav-link text-dark">
+                                        Pagos
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">Expreso</a></li>
+                                            <li><a href="#">Tarjeta de crédito</a></li>
+                                            <li><a href="#">Préstamo</a></li>
+                                            <li><a href="#">Beneficiarios</a></li>
+                                        </ul>
+                                    </li>
+                                </li>
+
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Beneficiario</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Avance de  tecnología</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Trnasferencia</a>
                                 </li>
                             }
                             else

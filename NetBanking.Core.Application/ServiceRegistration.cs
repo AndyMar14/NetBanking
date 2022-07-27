@@ -20,6 +20,7 @@ namespace NetBanking.Infrastructure.Persistence
             services.AddTransient(typeof(IGenericService<,,>), typeof(GenericService<,,>));
             services.AddTransient<IUserServices, UserServices>();
             services.AddTransient<ITransactionsService, TransactionsService>();
+            services.AddTransient<IProductsService, ProductsService>();
 
             #endregion
         }
