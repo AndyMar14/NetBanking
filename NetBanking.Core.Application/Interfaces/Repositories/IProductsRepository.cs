@@ -10,8 +10,5 @@ namespace NetBanking.Core.Application.Interfaces.Repositories
 {
     public interface IProductsRepository : IGenericRepository<Products>
     {
-        Task<Users> GetByNameAsync(SaveProductsViewModel amigoVm);
-        Task<Products> GetRelationship(int UserId, int ProductId);
-        Task<Products> GetRelationshipId(int UserId, int ProductId);
     }
 }

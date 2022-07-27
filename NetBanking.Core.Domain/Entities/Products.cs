@@ -9,7 +9,7 @@ namespace NetBanking.Core.Domain.Entities
     public class Products
     {
         public int Id { get; set; }
-        public int IdUser { get; set; }
+        public string IdUser { get; set; }
         public int MainProduct { get; set; }
         public int IdProducType { get; set; }
         public int Identifier { get; set; }
@@ -19,7 +19,6 @@ namespace NetBanking.Core.Domain.Entities
 
         //NAVIGATION PROPERTIES
 
-        public Users User { get; set; }
         public BankProducts Produc { get; set; }
         public ICollection<Transactions> TransactionsOut { get; set; }
         public ICollection<Transactions> TransactionsIn { get; set; }

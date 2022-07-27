@@ -13,6 +13,5 @@ namespace NetBanking.Core.Domain.Entities
         public int IdRecipient { get; set; }
 
         //NAVIGATION PROPERTIES
-        public Users Recipient { get; set; }
     }
 }

@@ -36,10 +36,10 @@
                                     <li data-toggle="dropdown" class="nav-link text-dark">
                                         Pagos
                                         <ul class="dropdown-menu">
-                                            <li><a href="#">Expreso</a></li>
-                                            <li><a href="#">Tarjeta de crédito</a></li>
-                                            <li><a href="#">Préstamo</a></li>
-                                            <li><a href="#">Beneficiarios</a></li>
+                                            <li><a asp-controller="Pagos" asp-action="PagoExpreso">Expreso</a></li>
+                                            <li><a asp-controller="Pagos" asp-action="PagoTarjetaCredito">Tarjeta de crédito</a></li>
+                                            <li><a asp-controller="Pagos" asp-action="PagoPrestamo">Préstamo</a></li>
+                                            <li><a asp-controller="Pagos" asp-action="PagoBeneficiario">Beneficiarios</a></li>
                                         </ul>
                                     </li>
                                 </li>
@@ -48,19 +48,16 @@
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Beneficiario</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Avance de  tecnología</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Avance de Efectivo</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Trnasferencia</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Transferencia</a>
                                 </li>
                             }
-                            else
+                            if (isAdmin) 
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Administración de usuario</a>
+                                    <a class="nav-link text-dark" asp-controller="User" asp-action="UsersList">Administración de usuario</a>
                                 </li>
                             }
                         }
