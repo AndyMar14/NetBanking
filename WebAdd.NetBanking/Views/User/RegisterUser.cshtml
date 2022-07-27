@@ -91,12 +91,11 @@
                             <div class="row">
                                 <div class="col-6">
                                     <label asp-for="RolId" class="form-label">Rol: </label>
-                                    <select asp-for="RolId" asp-items="@(new SelectList(Model.Roles,"Id","Name"))" class="form-select">
-                                        <option value="0">Seleccione un rol</option>
+                                    <select asp-for="RolId" asp-items="@(new SelectList(Model.Roles,"Id","Name"))" class="form-select form-control" onchange="showMonto()" id="rol">
                                     </select>
                                     <span asp-validation-for="Email" class="text-danger"></span>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-6" id="monto">
                                     <label asp-for="MontoInicial" class="form-label">Monto Inicial: </label>
                                     <input asp-for="MontoInicial" class="form-control" />
                                     <span asp-validation-for="MontoInicial" class="text-danger"></span>
@@ -104,19 +103,29 @@
                             </div>
                         </div>
 
-
                         <button type="submit" class="btn btn-primary">Guardar</button>
                         <a asp-controller="User" asp-action="Index" class="btn btn-warning">Volver atrás</a>
 
                     </form>
-
-
-
-
                 </div>
 
             </div>
         </div>
     </div>
-
 </div>
+<script>
+    var selection = document.getElementById('rol');
+    function showMonto() {
+        var selectedOption = selection.options[selection.selectedIndex].index;
+
+        if (selectedOption == 0) {
+            $("#monto").hide();
+        } else if (selectedOption == 1) {
+            $("#monto").show();
+        }
+    }
+    window.onload = function () {
+        showMonto();
+    };
+ 
+</script>

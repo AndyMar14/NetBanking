@@ -12,6 +12,9 @@ a {
   color: #0366d6;
 }
 
+li a{
+    cursor:pointer;
+}
 .btn-primary {
   color: #fff;
   background-color: #1b6ec2;
