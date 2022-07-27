@@ -31,36 +31,12 @@ namespace NetBanking.Core.Application.Services
 
             return productsVm;
         }
-        public async Task<Users> GetUser(SaveProductsViewModel vm)
-        {
-            Users user = await _productsRepository.GetByNameAsync(vm);
-            return user;
-        }
-
-        public async Task<bool> GetRelationship(int UserId, int ProductId)
-        {
-            Products products = await _productsRepository.GetRelationship(UserId, ProductId);
-
-            if (products == null)
-            {
-                return false;
-            }
-            return true;
-        }
-
-        public async Task<Products> GetRelationshipId(int UserId, int ProductId)
-        {
-            Products products = await _productsRepository.GetRelationshipId(UserId, ProductId);
-
-            return products;
-        }
         public async Task<List<ProductsViewModel>> GetAllProductsWithIncludes()
         {
             var productsList = await _productsRepository.GetAllWithIncludeAsync(new List<string> { "Products", "Users" });
 
             return productsList.Where(products => products.IdUser == usersViewModel.Id).Select(products => new ProductsViewModel
             {
-                UserId = products.User.Id,
                 MainProduct = products.MainProduct,
                 ProductIdentifier = products.Identifier,
                 CreditLimit = products.Limit,

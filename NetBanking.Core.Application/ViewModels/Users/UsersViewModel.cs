@@ -10,7 +10,7 @@ namespace NetBanking.Core.Application.ViewModels.Users
 {
     public class UsersViewModel
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Username { get; set; }
@@ -18,7 +18,7 @@ namespace NetBanking.Core.Application.ViewModels.Users
         public string ConfirmPassword { get; set; }
         public string Email { get; set; }
         public string Identification { get; set; }
-        public List<RoleViewModel> Type { get; set; }
+        public IList<string> Type { get; set; }
         public string Phone { get; set; }
         public string Role { get; set; }
 
