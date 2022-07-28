@@ -1,10 +1,56 @@
-﻿@model List<NetBanking.Core.Application.ViewModels.Products.ProductsViewModel>;
+﻿@model NetBanking.Core.Application.ViewModels.Products.SaveProductsViewModel;
 @{
     int cont = 0;
     float monto = 0;
 }
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Buscar Beneficiario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form method="post" asp-controller="Products" asp-action="AddProduct">
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+                <input class="hidden" asp-for="IdUser" value="@Model.IdUser" />
+                <input class="hidden" asp-for="Identifier" value="" />
+                <input class="hidden" asp-for="MainProduct" value="0" />
+
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-6">
+                            <label asp-for="IdProducType" class="form-label">Rol: </label>
+                            <select asp-for="IdProducType" asp-items="@(new SelectList(ViewBag.Products.Products,"Id","Name"))" class="form-control">
+                            </select>
+                            <span asp-validation-for="IdProducType" class="text-danger"></span>
+                        </div>
+                        <div class="col-6" id="monto">
+                            <label asp-for="Limit" class="form-label">Monto Inicial: </label>
+                            <input asp-for="Limit" class="form-control" />
+                            <span asp-validation-for="Limit" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-md-12">
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Agregar Beneficiario
+        </button>
+        <span style="color:red;font-size:20px">@TempData["ErrorMessge"]</span>
+    </div>
+    <div class="col-md-12">
+        <br />
+        <h4>Beneficiarios</h4>
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -12,21 +58,28 @@
                     <th>Tipo de cuenta</th>
                     <th>Monto</th>
                     <th>
-                        <a class="btn btn-info btn-sm" asp-controller="Products" asp-action="AddProduct">Nuevo</a>
+                        <button type="button" class="btn btn-info btn-sm" onclick="location.href='@Url.Action("Create", "User")'">Nuevo</button>
                     </th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (NetBanking.Core.Application.ViewModels.Products.ProductsViewModel products in Model)
+                @foreach (NetBanking.Core.Application.ViewModels.Products.ProductsViewModel products in ViewBag.Products)
                 {
                     cont++;
                     <tr>
                         <td>@cont</td>
-                        <td>@products.ProductName</td>
+                        <td>@products.Products.Name</td>
                         <td>@monto</td>
                     </tr>
                 }
             </tbody>
         </table>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+
     </div>
 </div>
