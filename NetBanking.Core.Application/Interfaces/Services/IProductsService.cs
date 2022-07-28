@@ -11,5 +11,6 @@ namespace NetBanking.Core.Application.Interfaces.Services
     public interface IProductsService : IGenericService<SaveProductsViewModel, ProductsViewModel, Products>
     {
         Task<List<ProductsViewModel>> GetAllProductsWithIncludes();
+        Task<string> GenerateSequence();
     }
 }

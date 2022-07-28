@@ -48,9 +48,19 @@ namespace NetBanking.Core.Application.Services
         public async Task<string> GenerateSequence()
         {
             var productsList = await _productsRepository.GetAllAsync();
-            string LastProductSequence = productsList.OrderByDescending(x => x.Id).ThenByDescending(x => x.Id).FirstOrDefault().Identifier;
-            //LastProduct = productsList.
-            return "";
+            if (productsList.Count > 0)
+            {
+                int LastProductId = productsList.OrderByDescending(x => x.Id).ThenByDescending(x => x.Id).FirstOrDefault().Id + 1;
+                var sequence = LastProductId.ToString().PadLeft(9,'0');
+                return sequence;
+            }
+            else
+            {
+                int LastProductId = 1;
+                var sequence = LastProductId.ToString().PadLeft(9, '0');
+                return sequence;
+            }
+
         }
     }
 }
