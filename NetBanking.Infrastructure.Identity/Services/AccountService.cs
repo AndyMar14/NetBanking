@@ -136,7 +136,7 @@ namespace NetBanking.Infrastructure.Identity.Services
             product.MainProduct = 1;
             product.IdProducType = 1;
             product.Limit = 0;
-            product.Monto = 0;
+            product.Amount = request.Amount;
             product.Identifier = await _productsService.GenerateSequence();
             await _productsService.Add(product);
 

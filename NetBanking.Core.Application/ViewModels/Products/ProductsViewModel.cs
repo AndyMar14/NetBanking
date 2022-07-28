@@ -20,6 +20,7 @@ namespace NetBanking.Core.Application.ViewModels.Products
         public int IdProductType { get; set; }
         public int Identifier { get; set; }
 
+
         public double Balance { get; set; }
         public double Limit { get; set; }
         public double LoanAmount { get; set; }
