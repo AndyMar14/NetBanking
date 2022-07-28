@@ -37,7 +37,7 @@ namespace NetBanking.Core.Application.Services
             return productsList.Where(products => products.IdUser == usersViewModel.Id).Select(products => new ProductsViewModel
             {
                 MainProduct = products.MainProduct,
-                Identifier = products.Identifier,
+                ProductIdentifier = products.Identifier,
                 Limit = products.Limit,
                 LoanAmount = products.Monto,
                 Balance = products.Balance
