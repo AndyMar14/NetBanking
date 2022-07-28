@@ -54,6 +54,7 @@ namespace NetBanking.Core.Application.Services
                 Identifier = products.Identifier,
                 Limit = products.Limit,
                 LoanAmount = products.Monto,
+                ProductName = products.Produc.Name,
                 Balance = products.Balance
             }).ToList();
         }

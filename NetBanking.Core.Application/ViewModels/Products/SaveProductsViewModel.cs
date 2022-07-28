@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NetBanking.Core.Application.ViewModels.BankProducts;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace NetBanking.Core.Application.ViewModels.Products
         public int MainProduct { get; set; }
         public int IdProducType { get; set; }
 
-        [Required(ErrorMessage = "Debe colocar el número de identificación del producto")]
+        //[Required(ErrorMessage = "Debe colocar el número de identificación del producto")]
         public string Identifier { get; set; }
         public double Balance { get; set; }
 
@@ -27,5 +28,7 @@ namespace NetBanking.Core.Application.ViewModels.Products
         [Required(ErrorMessage = "Debe colocar el límite del préstamo")]
         [DataType(DataType.Currency)]
         public float Amount { get; set; }
+        //vm.Categories = await _categoryService.GetAllViewModel();
+        public List<BankProductsViewModel> Products { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using NetBanking.Core.Application.Dtos.Account;
+using NetBanking.Core.Application.ViewModels.BankProducts;
 using NetBanking.Core.Application.ViewModels.Products;
 using NetBanking.Core.Application.ViewModels.Users;
 using NetBanking.Core.Domain.Entities;
@@ -29,6 +30,12 @@ namespace NetBanking.Core.Application.Mappings
                 .ForMember(x => x.Produc, opt => opt.Ignore())
                 .ForMember(x => x.TransactionsOut, opt => opt.Ignore())
                 .ForMember(x => x.TransactionsIn, opt => opt.Ignore());
+
+            CreateMap<BankProducts, BankProductsViewModel>()
+                .ReverseMap()
+                .ForMember(x => x.Products, opt => opt.Ignore());
+
+
 
             /*CreateMap<ForgotPasswordRequest, ForgotPasswordViewModel>()
                 .ForMember(x => x.HasError, opt => opt.Ignore())
