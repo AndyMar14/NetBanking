@@ -10,6 +10,6 @@ namespace NetBanking.Core.Application.Interfaces.Repositories
 {
     public interface ITransactionsRepository : IGenericRepository<Transactions>
     {
-        Task<TransactionsViewModel> Pay(SaveTransactionsViewModel vm);
+        Task<Transactions> Pay(SaveTransactionsViewModel vm);
     }
 }

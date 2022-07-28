@@ -11,6 +11,7 @@ namespace NetBanking.Infrastructure.Persistence.Contexts
         public DbSet<Products> Products { get; set; }
         public DbSet<BankProducts> BankProducts { get; set; }
         public DbSet<Recipients> Recipients { get; set; }
+        public DbSet<Transactions> Transactions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

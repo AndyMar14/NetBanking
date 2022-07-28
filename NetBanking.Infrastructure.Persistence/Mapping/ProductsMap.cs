@@ -11,7 +11,7 @@ namespace NetBanking.Infrastructure.Persistence.Mapping
             builder.ToTable("Products")
                 .HasKey(p => p.Id);
 
-            builder
+            /*builder
                 .HasMany<Transactions>(p => p.TransactionsOut)
                 .WithOne(t => t.ProductFrom)
                 .HasForeignKey(p => p.IdUserProduct)
@@ -21,7 +21,7 @@ namespace NetBanking.Infrastructure.Persistence.Mapping
                 .HasMany<Transactions>(p => p.TransactionsIn)
                 .WithOne(t => t.ProducTo)
                 .HasForeignKey(p => p.IdRecipientProduct)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.NoAction);*/
         }
     }
 }

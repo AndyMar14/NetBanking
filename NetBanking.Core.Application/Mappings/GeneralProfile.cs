@@ -32,9 +32,9 @@ namespace NetBanking.Core.Application.Mappings
 
             CreateMap<Products, SaveProductsViewModel>()
                 .ReverseMap()
-                .ForMember(x => x.Produc, opt => opt.Ignore())
-                .ForMember(x => x.TransactionsOut, opt => opt.Ignore())
-                .ForMember(x => x.TransactionsIn, opt => opt.Ignore());
+                .ForMember(x => x.Produc, opt => opt.Ignore());
+                //.ForMember(x => x.TransactionsOut, opt => opt.Ignore())
+                //.ForMember(x => x.TransactionsIn, opt => opt.Ignore());
 
             /*CreateMap<ForgotPasswordRequest, ForgotPasswordViewModel>()
                 .ForMember(x => x.HasError, opt => opt.Ignore())

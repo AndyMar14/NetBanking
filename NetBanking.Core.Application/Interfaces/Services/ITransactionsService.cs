@@ -10,6 +10,6 @@ namespace NetBanking.Core.Application.Interfaces.Services
 {
     public interface ITransactionsService : IGenericService<SaveTransactionsViewModel, TransactionsViewModel, Transactions>
     {
-        Task<TransactionsViewModel> Pay(SaveTransactionsViewModel vm);
+        Task<Transactions> Pay(SaveTransactionsViewModel vm);
     }
 }
