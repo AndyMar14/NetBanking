@@ -42,11 +42,10 @@ namespace WebApp.NetBanking.Controllers
         public async Task<IActionResult> Create(SaveRecipientsViewModel vm)
         {
             var product = await _productsService.GetProductByIdentifier(vm.IdRecipient);
-
-
-            if (!ModelState.IsValid || product == null)
+            TempData["ErrorMessge"] = "";
+            if (!ModelState.IsValid || product.HasError == true)
             {
-                TempData["UserExist"] = false;
+                TempData["ErrorMessge"] = product.ErrorMessage;
                 return RedirectToAction("Index");
             }
             vm.IdUser = userViewModel.Id;
@@ -83,18 +82,14 @@ namespace WebApp.NetBanking.Controllers
         }
 
         // POST: RecipientsController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        [HttpGet]
+        public async Task<IActionResult> Delete(string Identifier)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+
+            await _recipientsService.DeleteRecipient(Identifier);
+
+            return RedirectToAction("Index");
+        
         }
     }
 }

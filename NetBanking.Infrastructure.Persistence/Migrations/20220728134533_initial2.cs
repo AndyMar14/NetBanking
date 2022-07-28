@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NetBanking.Infrastructure.Persistence.Migrations
 {
-    public partial class Initial2 : Migration
+    public partial class initial2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,6 +18,20 @@ namespace NetBanking.Infrastructure.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_BankProducts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Recipients",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IdRecipient = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Recipients", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -104,6 +118,9 @@ namespace NetBanking.Infrastructure.Persistence.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Recipients");
+
             migrationBuilder.DropTable(
                 name: "Transactions");
 

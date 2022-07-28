@@ -16,14 +16,15 @@ namespace NetBanking.Core.Application.Services
 {
     public class RecipientsService : GenericService<SaveRecipientsViewModel, RecipientsViewModel, Recipients>, IRecipientsService
     {
-        
+        private readonly IAccountService _accountService;
         private readonly IRecipientsRepository _recipientsRepository;
         private readonly IProductsRepository _productsRepository;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly UsersViewModel usersViewModel;
-        public RecipientsService(IProductsRepository productsRepository,IRecipientsRepository recipientsRepository, IMapper mapper, IHttpContextAccessor httpContextAccessor) : base(recipientsRepository, mapper)
+        public RecipientsService(IAccountService accountService,IProductsRepository productsRepository,IRecipientsRepository recipientsRepository, IMapper mapper, IHttpContextAccessor httpContextAccessor) : base(recipientsRepository, mapper)
         {
+            _accountService = accountService;
             _recipientsRepository = recipientsRepository;
             _productsRepository = productsRepository;
             _mapper = mapper;
@@ -42,9 +43,30 @@ namespace NetBanking.Core.Application.Services
 
             foreach (var p in listVm)
             {
-                var product = _productsRepository.GetProductByIdentifier(p.IdRecipient);
+                var product = await _productsRepository.GetProductByIdentifier(p.IdRecipient);
+                p.Recipient = await _accountService.GetUserByIdAsync(product.IdUser);
             }
             return listVm;
+        }
+
+        public override async Task<SaveRecipientsViewModel> Add(SaveRecipientsViewModel vm)
+        {
+            var recipient = await _recipientsRepository.GetRecipientsId(vm.IdRecipient, usersViewModel.Id);
+
+            if (recipient == null)
+            {
+                await base.Add(vm);
+            }
+            return vm;
+        }
+        public async Task DeleteRecipient(string Id)
+        {
+            var recipient = await _recipientsRepository.GetRecipientsId(Id, usersViewModel.Id);
+
+            if (recipient != null)
+            {
+                await _recipientsRepository.DeleteAsync(recipient);
+            }
         }
     }
 }

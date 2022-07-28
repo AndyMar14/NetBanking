@@ -30,5 +30,13 @@ namespace NetBanking.Infrastructure.Persistence.Repositories
 
             return recipients;
         }
+
+        public async Task<Recipients> GetRecipientsId(string Identifier, string User)
+        {
+            Recipients recipients = await _dbContext.Set<Recipients>()
+                .FirstOrDefaultAsync(p => p.IdUser == User && p.IdRecipient == Identifier);
+
+            return recipients;
+        }
     }
 }

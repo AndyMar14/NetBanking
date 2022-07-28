@@ -11,5 +11,6 @@ namespace NetBanking.Core.Application.Interfaces.Repositories
     public interface IRecipientsRepository : IGenericRepository<Recipients>
     {
         Task<List<RecipientsViewModel>> GetRecipients(string id);
+        Task<Recipients> GetRecipientsId(string Identifier, string User);
     }
 }

@@ -20,12 +20,18 @@ namespace NetBanking.Infrastructure.Persistence.Repositories
         {
             Products product = await _dbContext.Set<Products>()
              .FirstOrDefaultAsync(p => p.Identifier == Identifire);
+
             ProductsViewModel productVm = new();
             if (product != null)
             {
                 
                 productVm.Identifier = product.Identifier;
                 productVm.IdUser = product.IdUser;
+            }
+            else
+            {
+                productVm.HasError = true;
+                productVm.ErrorMessage = "La cuenta no existe";
             }
             return productVm;
         }

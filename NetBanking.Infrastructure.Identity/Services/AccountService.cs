@@ -89,6 +89,16 @@ namespace NetBanking.Infrastructure.Identity.Services
 
             return users;
         }
+
+        public async Task<UsersViewModel> GetUserByIdAsync(string Id)
+        {
+            var users = await _userManager.FindByIdAsync(Id);
+            UsersViewModel user = new();
+            user.Id = users.Id;
+            user.FirstName = users.FirstName;
+            user.LastName = users.LastName;
+            return user;
+        }
         public async Task<RegisterResponse> RegisterBasicUserAsync(RegisterRequest request, string origin)
         {
             RegisterResponse response = new()

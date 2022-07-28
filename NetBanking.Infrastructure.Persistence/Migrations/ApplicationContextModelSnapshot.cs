@@ -86,6 +86,24 @@ namespace NetBanking.Infrastructure.Persistence.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("NetBanking.Core.Domain.Entities.Recipients", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("IdRecipient")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Recipients");
+                });
+
             modelBuilder.Entity("NetBanking.Core.Domain.Entities.Transactions", b =>
                 {
                     b.Property<int>("Id")

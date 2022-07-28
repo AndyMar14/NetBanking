@@ -25,6 +25,9 @@ namespace NetBanking.Core.Application.ViewModels.Products
         public double Limit { get; set; }
         public double LoanAmount { get; set; }
 
+        public bool HasError { get; set; }
+        public string ErrorMessage { get; set; }
+
 
         public UsersViewModel Users { get; set; }
         public BankProductsViewModel Products { get; set; }
