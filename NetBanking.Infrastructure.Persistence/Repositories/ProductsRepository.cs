@@ -24,7 +24,7 @@ namespace NetBanking.Infrastructure.Persistence.Repositories
             if (product != null)
             {
                 
-                productVm.ProductIdentifier = product.Identifier;
+                productVm.Identifier = product.Identifier;
                 productVm.IdUser = product.IdUser;
             }
             return productVm;

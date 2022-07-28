@@ -17,8 +17,8 @@ namespace NetBanking.Core.Application.ViewModels.Products
     {
         public string IdUser { get; set; }
         public int MainProduct { get; set; }
-        public int ProductTypeId { get; set; }
-        public int ProductIdentifier { get; set; }
+        public int IdProductType { get; set; }
+        public int Identifier { get; set; }
 
         public double Balance { get; set; }
         public double Limit { get; set; }
