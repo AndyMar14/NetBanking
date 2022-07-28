@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using NetBanking.Core.Application.ViewModels.Products;
 
 namespace WebApp.NetBanking.Controllers
 {
@@ -19,9 +20,18 @@ namespace WebApp.NetBanking.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> ListClienteProducts()
         {
             return View(await _productServices.GetAllProductsWithIncludes());
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> ListClienteProductsAdmin(string Id)
+        {
+            List<ProductsViewModel> vm = new();
+            vm = await _productServices.GetAllProductsWithIncludesAdmin(Id);
+            return View("ListClienteProducts", vm);
         }
     }
 }

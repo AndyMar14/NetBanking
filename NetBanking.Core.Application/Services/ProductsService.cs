@@ -44,6 +44,20 @@ namespace NetBanking.Core.Application.Services
             }).ToList();
         }
 
+        public async Task<List<ProductsViewModel>> GetAllProductsWithIncludesAdmin(string ClientId)
+        {
+            var productsList = await _productsRepository.GetAllWithIncludeAsync(new List<string> { "Produc" });
+
+            return productsList.Where(products => products.IdUser == ClientId.ToString()).Select(products => new ProductsViewModel
+            {
+                MainProduct = products.MainProduct,
+                Identifier = products.Identifier,
+                Limit = products.Limit,
+                LoanAmount = products.Monto,
+                Balance = products.Balance
+            }).ToList();
+        }
+
         public async Task<string> GenerateSequence()
         {
             var productsList = await _productsRepository.GetAllAsync();

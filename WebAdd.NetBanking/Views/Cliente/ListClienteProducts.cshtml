@@ -1,23 +1,29 @@
-﻿@model List<NetBanking.Core.Application.ViewModels.Users.UsersViewModel>;
-
+﻿@model List<NetBanking.Core.Application.ViewModels.Products.ProductsViewModel>;
+@{
+    int cont = 0;
+    float monto = 0;
+}
 <div class="row">
     <div class="col-md-12">
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Cedula</th>
-                    <th>Correo</th>
+                    <th>#</th>
+                    <th>Tipo de cuenta</th>
+                    <th>Monto</th>
                     <th>
                         <button type="button" class="btn btn-info btn-sm" onclick="location.href='@Url.Action("Create", "User")'">Nuevo</button>
                     </th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (NetBanking.Core.Application.ViewModels.Users.UsersViewModel user in ViewBag.usuarios)
+                @foreach (NetBanking.Core.Application.ViewModels.Products.ProductsViewModel products in Model)
                 {
+                    cont++;
                     <tr>
+                        <td>@cont</td>
+                        <td>@products.Products.Name</td>
+                        <td>@monto</td>
                     </tr>
                 }
             </tbody>
