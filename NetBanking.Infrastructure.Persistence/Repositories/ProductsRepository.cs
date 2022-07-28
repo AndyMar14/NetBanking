@@ -16,7 +16,7 @@ namespace NetBanking.Infrastructure.Persistence.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<ProductsViewModel> GetProductByIdentifier(int Identifire)
+        public async Task<ProductsViewModel> GetProductByIdentifier(string Identifire)
         {
             Products product = await _dbContext.Set<Products>()
              .FirstOrDefaultAsync(p => p.Identifier == Identifire);
@@ -24,7 +24,7 @@ namespace NetBanking.Infrastructure.Persistence.Repositories
             if (product != null)
             {
                 
-                productVm.ProductIdentifier = product.Identifier;
+                productVm.Identifier = product.Identifier;
                 productVm.IdUser = product.IdUser;
             }
             return productVm;
