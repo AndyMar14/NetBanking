@@ -123,16 +123,6 @@ namespace NetBanking.Infrastructure.Identity.Services
             var result = await _userManager.CreateAsync(user, request.Password);
             userWithSameUserName = await _userManager.FindByIdAsync(user.Id);
 
-            SaveProductsViewModel product = new();
-            product.UserId = userWithSameUserName.Id;
-            product.MainProduct = 1;
-            product.ProductTypeId = 1;
-            product.CreditLimit = 0;
-            product.LoanAmount = 0;
-            product.ProductIdentifier = PadLeft();
-
-
-            await _productsService.Add(product);
             
             if (!result.Succeeded)
             {
@@ -140,6 +130,15 @@ namespace NetBanking.Infrastructure.Identity.Services
                 response.Error = $"An error occurred trying to register the user.";
                 return response;
             }
+
+            SaveProductsViewModel product = new();
+            product.UserId = userWithSameUserName.Id;
+            product.MainProduct = 1;
+            product.ProductTypeId = 1;
+            product.CreditLimit = 0;
+            product.LoanAmount = 0;
+            product.ProductIdentifier = await _productsService.GenerateSequence();
+            await _productsService.Add(product);
 
             return response;
         }

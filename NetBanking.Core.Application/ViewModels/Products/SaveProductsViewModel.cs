@@ -17,7 +17,7 @@ namespace NetBanking.Core.Application.ViewModels.Products
         public int ProductTypeId { get; set; }
 
         [Required(ErrorMessage = "Debe colocar el número de identificación del producto")]
-        public int ProductIdentifier { get; set; }
+        public string ProductIdentifier { get; set; }
         public double Balance { get; set; }
 
         [Required(ErrorMessage = "Debe colocar el límite de la tarjeta")]
