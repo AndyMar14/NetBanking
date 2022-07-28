@@ -22,6 +22,6 @@ namespace NetBanking.Core.Application.ViewModels.Transactions
 
         [Required(ErrorMessage = "Debe colocar el monto")]
         [DataType(DataType.Currency)]
-        public double Amount { get; set; }
+        public float Amount { get; set; }
     }
 }

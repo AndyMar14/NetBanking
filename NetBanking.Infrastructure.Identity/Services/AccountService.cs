@@ -131,6 +131,7 @@ namespace NetBanking.Infrastructure.Identity.Services
             };
 
             var result = await _userManager.CreateAsync(user, request.Password);
+            await _userManager.AddToRoleAsync(user, Roles.Client.ToString());
             userWithSameUserName = await _userManager.FindByIdAsync(user.Id);
 
             

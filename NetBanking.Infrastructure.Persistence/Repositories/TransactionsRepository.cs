@@ -32,12 +32,12 @@ namespace NetBanking.Infrastructure.Persistence.Repositories
             if (accountFrom != null && accountTo != null)
             {
 
-                accountFrom.Monto = accountFrom.Monto - vm.Amount;
+                accountFrom.Amount = accountFrom.Amount - vm.Amount;
                 var entryFrom = await _dbContext.Set<Products>().FindAsync(accountFrom.Id);
                 _dbContext.Entry(entryFrom).CurrentValues.SetValues(accountFrom);
                 await _dbContext.SaveChangesAsync();
 
-                accountTo.Monto = accountTo.Monto + vm.Amount;
+                accountTo.Amount = accountTo.Amount + vm.Amount;
                 var entryTo = await _dbContext.Set<Products>().FindAsync(accountTo.Id);
                 _dbContext.Entry(entryTo).CurrentValues.SetValues(accountTo);
                 await _dbContext.SaveChangesAsync();

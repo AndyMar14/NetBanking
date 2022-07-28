@@ -14,8 +14,8 @@ namespace NetBanking.Core.Domain.Entities
         public int IdProducType { get; set; }
         public string Identifier { get; set; }
         public double Limit { get; set; }
-        public double Monto { get; set; }
-        public double Balance { get; set; }
+        public float Amount { get; set; }
+        public float Balance { get; set; }
 
         //NAVIGATION PROPERTIES
 
