@@ -4,6 +4,7 @@ using NetBanking.Core.Application.Interfaces.Repositories;
 using NetBanking.Core.Application.Interfaces.Services;
 using NetBanking.Core.Application.ViewModels.Transactions;
 using NetBanking.Core.Domain.Entities;
+using System.Threading.Tasks;
 
 namespace NetBanking.Core.Application.Services
 {
@@ -18,6 +19,13 @@ namespace NetBanking.Core.Application.Services
             _transactionsRepository = transactionsRepository;
             _httpContextAccessor = httpContextAccessor;
             _mapper = mapper;
+        }
+
+        public async Task<TransactionsViewModel> Pay(SaveTransactionsViewModel vm)
+        {
+            TransactionsViewModel transaction = await _transactionsRepository.Pay(vm);
+
+            return transaction;
         }
     }
 }
