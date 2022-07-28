@@ -13,5 +13,6 @@ namespace NetBanking.Core.Application.Interfaces.Services
         Task<List<ProductsViewModel>> GetAllProductsWithIncludes();
         Task<List<ProductsViewModel>> GetAllProductsWithIncludesAdmin(string ClientId);
         Task<string> GenerateSequence();
+        Task<ProductsViewModel> GetProductByIdentifier(int Identifire);
     }
 }
