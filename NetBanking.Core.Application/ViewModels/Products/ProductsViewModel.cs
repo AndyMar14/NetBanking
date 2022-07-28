@@ -15,12 +15,13 @@ namespace NetBanking.Core.Application.ViewModels.Products
 {
     public class ProductsViewModel
     {
-        public int UserId { get; set; }
+        public int Id { get; set; }
+        public int IdUser { get; set; }
         public int MainProduct { get; set; }
-        public int ProductTypeId { get; set; }
-        public string ProductIdentifier { get; set; }
+        public int IdProducType { get; set; }
+        public string Identifier { get; set; }
         public double Balance { get; set; }
-        public double CreditLimit { get; set; }
+        public double Limit { get; set; }
         public double LoanAmount { get; set; }
 
 

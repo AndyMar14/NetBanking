@@ -28,7 +28,6 @@ namespace NetBanking.Core.Application.Services
         public override async Task<SaveProductsViewModel> Add(SaveProductsViewModel vm)
         {
             SaveProductsViewModel productsVm = await base.Add(vm);
-
             return productsVm;
         }
         public async Task<List<ProductsViewModel>> GetAllProductsWithIncludes()
@@ -38,8 +37,8 @@ namespace NetBanking.Core.Application.Services
             return productsList.Where(products => products.IdUser == usersViewModel.Id).Select(products => new ProductsViewModel
             {
                 MainProduct = products.MainProduct,
-                ProductIdentifier = products.Identifier,
-                CreditLimit = products.Limit,
+                Identifier = products.Identifier,
+                Limit = products.Limit,
                 LoanAmount = products.Monto,
                 Balance = products.Balance
             }).ToList();

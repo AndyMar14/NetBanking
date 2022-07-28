@@ -10,22 +10,22 @@ namespace NetBanking.Core.Application.ViewModels.Products
     public class SaveProductsViewModel
     {
         public int Id { get; set; }
-        public string UserId { get; set; }
+        public string IdUser { get; set; }
 
         [Required(ErrorMessage = "Debe colocar el producto")]
         public int MainProduct { get; set; }
-        public int ProductTypeId { get; set; }
+        public int IdProducType { get; set; }
 
         [Required(ErrorMessage = "Debe colocar el número de identificación del producto")]
-        public string ProductIdentifier { get; set; }
+        public string Identifier { get; set; }
         public double Balance { get; set; }
 
         [Required(ErrorMessage = "Debe colocar el límite de la tarjeta")]
         [DataType(DataType.Currency)]
-        public double CreditLimit { get; set; }
+        public double Limit { get; set; }
 
         [Required(ErrorMessage = "Debe colocar el límite del préstamo")]
         [DataType(DataType.Currency)]
-        public double LoanAmount { get; set; }
+        public double Monto { get; set; }
     }
 }

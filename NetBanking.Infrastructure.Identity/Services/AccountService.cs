@@ -132,12 +132,12 @@ namespace NetBanking.Infrastructure.Identity.Services
             }
 
             SaveProductsViewModel product = new();
-            product.UserId = userWithSameUserName.Id;
+            product.IdUser = userWithSameUserName.Id;
             product.MainProduct = 1;
-            product.ProductTypeId = 1;
-            product.CreditLimit = 0;
-            product.LoanAmount = 0;
-            product.ProductIdentifier = await _productsService.GenerateSequence();
+            product.IdProducType = 1;
+            product.Limit = 0;
+            product.Monto = 0;
+            product.Identifier = await _productsService.GenerateSequence();
             await _productsService.Add(product);
 
             return response;
