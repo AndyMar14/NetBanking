@@ -44,6 +44,13 @@ namespace NetBanking.Core.Application.Services
             }).ToList();
         }
 
+        public async Task<ProductsViewModel> GetProductByIdentifier(int Identifire)
+        {
+            var product = await _productsRepository.GetProductByIdentifier(Identifire);
+            return product;
+         
+        }
+
         public async Task<string> GenerateSequence()
         {
             var productsList = await _productsRepository.GetAllAsync();

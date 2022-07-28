@@ -35,6 +35,7 @@ namespace NetBanking.Infrastructure.Persistence.Repositories
                 accountFrom.Monto = accountFrom.Monto - vm.Amount;
                 var entryFrom = await _dbContext.Set<Products>().FindAsync(accountFrom.Id);
                 _dbContext.Entry(entryFrom).CurrentValues.SetValues(accountFrom);
+                await _dbContext.SaveChangesAsync();
 
                 accountTo.Monto = accountTo.Monto + vm.Amount;
                 var entryTo = await _dbContext.Set<Products>().FindAsync(accountTo.Id);

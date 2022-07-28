@@ -21,6 +21,7 @@ namespace NetBanking.Infrastructure.Persistence
             services.AddTransient<IUserServices, UserServices>();
             services.AddTransient<ITransactionsService, TransactionsService>();
             services.AddTransient<IProductsService, ProductsService>();
+            services.AddTransient<IRecipientsService, RecipientsService>();
 
             #endregion
         }
