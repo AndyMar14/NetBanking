@@ -1,4 +1,5 @@
-﻿using NetBanking.Core.Domain.Entities;
+﻿using NetBanking.Core.Application.ViewModels.Transactions;
+using NetBanking.Core.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,6 @@ namespace NetBanking.Core.Application.Interfaces.Repositories
 {
     public interface ITransactionsRepository : IGenericRepository<Transactions>
     {
+        Task<TransactionsViewModel> Pay(SaveTransactionsViewModel vm);
     }
 }
