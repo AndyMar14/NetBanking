@@ -9,8 +9,8 @@ namespace NetBanking.Core.Application.ViewModels.Recipients
 {
     public class RecipientsViewModel
     {
-        public int UserId { get; set; }
-        public int RecipientId { get; set; }
+        public string IdUser { get; set; }
+        public string IdRecipient { get; set; }
 
         public UsersViewModel Recipient { get; set; }
     }

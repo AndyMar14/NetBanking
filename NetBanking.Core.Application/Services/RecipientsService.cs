@@ -16,16 +16,35 @@ namespace NetBanking.Core.Application.Services
 {
     public class RecipientsService : GenericService<SaveRecipientsViewModel, RecipientsViewModel, Recipients>, IRecipientsService
     {
+        
         private readonly IRecipientsRepository _recipientsRepository;
+        private readonly IProductsRepository _productsRepository;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly UsersViewModel usersViewModel;
-        public RecipientsService(IRecipientsRepository recipientsRepository, IMapper mapper, IHttpContextAccessor httpContextAccessor) : base(recipientsRepository, mapper)
+        public RecipientsService(IProductsRepository productsRepository,IRecipientsRepository recipientsRepository, IMapper mapper, IHttpContextAccessor httpContextAccessor) : base(recipientsRepository, mapper)
         {
             _recipientsRepository = recipientsRepository;
+            _productsRepository = productsRepository;
             _mapper = mapper;
             _httpContextAccessor = httpContextAccessor;
             usersViewModel = _httpContextAccessor.HttpContext.Session.Get<UsersViewModel>("user");
+        }
+        public async Task<List<RecipientsViewModel>> GetRecipients(string id)
+        {
+            //var lista = await _recipientsRepository.GetRecipients(id);
+            var lista = await _recipientsRepository.GetAllAsync();
+
+            var listVm = lista.Where(r => r.IdUser == id).Select(reci=> new RecipientsViewModel { 
+                IdUser = reci.IdUser,
+                IdRecipient = reci.IdRecipient
+            } ).ToList();
+
+            foreach (var p in listVm)
+            {
+                var product = _productsRepository.GetProductByIdentifier(p.IdRecipient);
+            }
+            return listVm;
         }
     }
 }

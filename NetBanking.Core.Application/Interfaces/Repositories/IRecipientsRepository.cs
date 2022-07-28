@@ -1,4 +1,5 @@
-﻿using NetBanking.Core.Domain.Entities;
+﻿using NetBanking.Core.Application.ViewModels.Recipients;
+using NetBanking.Core.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,6 @@ namespace NetBanking.Core.Application.Interfaces.Repositories
 {
     public interface IRecipientsRepository : IGenericRepository<Recipients>
     {
+        Task<List<RecipientsViewModel>> GetRecipients(string id);
     }
 }

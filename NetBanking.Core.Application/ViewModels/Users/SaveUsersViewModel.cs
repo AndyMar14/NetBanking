@@ -52,7 +52,7 @@ namespace NetBanking.Core.Application.ViewModels.Users
         [RegularExpression(@"^\(?([0-9]{3})\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$", ErrorMessage = "Este número no es válido")]
         public string Phone { get; set; }
 
-        public int MontoInicial { get; set; }
+        public float Amount { get; set; }
 
         public List<RolesViewModel> Roles { get; set; }
         public bool HasError { get; set; }

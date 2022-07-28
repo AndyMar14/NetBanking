@@ -25,8 +25,9 @@ namespace WebApp.NetBanking.Controllers
             userViewModel = _httpContextAccessor.HttpContext.Session.Get<UsersViewModel>("user");
         }
         // GET: RecipientsController
-        public ActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            ViewBag.Recipients = await _recipientsService.GetRecipients(userViewModel.Id);
             return View();
         }
 
@@ -40,7 +41,7 @@ namespace WebApp.NetBanking.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(SaveRecipientsViewModel vm)
         {
-            var product = await _productsService.GetProductByIdentifier(vm.RecipientId);
+            var product = await _productsService.GetProductByIdentifier(vm.IdRecipient);
 
 
             if (!ModelState.IsValid || product == null)
@@ -48,8 +49,8 @@ namespace WebApp.NetBanking.Controllers
                 TempData["UserExist"] = false;
                 return RedirectToAction("Index");
             }
-            vm.UserId = userViewModel.Id;
-            vm.RecipientId = product.Identifier;
+            vm.IdUser = userViewModel.Id;
+            vm.IdRecipient = product.Identifier;
             await _recipientsService.Add(vm);
             return RedirectToAction("Index");
         }

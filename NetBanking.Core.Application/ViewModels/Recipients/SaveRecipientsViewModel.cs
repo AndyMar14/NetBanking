@@ -10,10 +10,10 @@ namespace NetBanking.Core.Application.ViewModels.Recipients
     public class SaveRecipientsViewModel
     {
         public int Id { get; set; }
-        public string UserId { get; set; }
+        public string IdUser { get; set; }
 
         [Required(ErrorMessage = "Debe colocar la cuenta del beneficiario")]
-        public string RecipientId { get; set; }
+        public string IdRecipient { get; set; }
 
     }
 }

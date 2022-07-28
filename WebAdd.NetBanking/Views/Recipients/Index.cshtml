@@ -16,9 +16,9 @@
             <form method="post" asp-controller="Recipients" asp-action="Create">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label asp-for="RecipientId" class="form-label">Numero de Cuenta: </label>
-                        <input type="text" asp-for="RecipientId" class="form-control" />
-                        <span asp-validation-for="RecipientId" class="text-danger"></span>
+                        <label asp-for="IdRecipient" class="form-label">Numero de Cuenta: </label>
+                        <input type="text" asp-for="IdRecipient" class="form-control" />
+                        <span asp-validation-for="IdRecipient" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -41,13 +41,13 @@
         <h4>Beneficiarios</h4>
         <table class="table">
             <tbody>
-                @*@foreach (UsersViewModel item in ViewBag.Recipients)
+                @foreach (UsersViewModel item in ViewBag.Recipients)
                 {
                     <tr>
                         <td>@item.FirstName</td>
                         <td><a asp-controller="Amigos" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger float-right">Borrar</a></td>
                     </tr>
-                }*@
+                }
             </tbody>
         </table>
     </div>
