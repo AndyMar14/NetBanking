@@ -20,22 +20,15 @@ namespace NetBanking.Core.Application.Mappings
                 .ForMember(x => x.Error, opt => opt.Ignore())
                 .ReverseMap();
 
-            //CreateMap<Products, ProductsViewModel>()
-            //    .ForMember(x => x.ProductTypeId, opt => opt.Ignore())
-            //    .ForMember(x => x.ProductIdentifier, opt => opt.Ignore())
-            //    .ReverseMap()
-            //    .ForMember(x => x.IdProducType, opt => opt.Ignore());
+            CreateMap<Products, ProductsViewModel>()
+                .ReverseMap();
 
 
-            //CreateMap<Products, SaveProductsViewModel>()
-            //    .ForMember(x => x.File, opt => opt.Ignore())
-            //    .ReverseMap()
-            //    .ForMember(x => x.Created, opt => opt.Ignore())
-            //    .ForMember(x => x.CreatedBy, opt => opt.Ignore())
-            //    .ForMember(x => x.LastModified, opt => opt.Ignore())
-            //    .ForMember(x => x.LastModified, opt => opt.Ignore())
-            //    .ForMember(x => x.LastModifiedBy, opt => opt.Ignore())
-            //    .ForMember(x => x.Category, opt => opt.Ignore());
+            CreateMap<Products, SaveProductsViewModel>()
+                .ReverseMap()
+                .ForMember(x => x.Produc, opt => opt.Ignore())
+                .ForMember(x => x.TransactionsOut, opt => opt.Ignore())
+                .ForMember(x => x.TransactionsIn, opt => opt.Ignore());
 
             /*CreateMap<ForgotPasswordRequest, ForgotPasswordViewModel>()
                 .ForMember(x => x.HasError, opt => opt.Ignore())
