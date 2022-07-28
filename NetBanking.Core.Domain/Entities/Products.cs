@@ -12,7 +12,7 @@ namespace NetBanking.Core.Domain.Entities
         public string IdUser { get; set; }
         public int MainProduct { get; set; }
         public int IdProducType { get; set; }
-        public string Identifier { get; set; }
+        public int Identifier { get; set; }
         public double Limit { get; set; }
         public double Monto { get; set; }
         public double Balance { get; set; }

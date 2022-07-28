@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NetBanking.Core.Application.Helpers;
 using NetBanking.Core.Application.Interfaces.Services;
 using NetBanking.Core.Application.ViewModels.Recipients;
+using NetBanking.Core.Application.ViewModels.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +14,15 @@ namespace WebApp.NetBanking.Controllers
     public class RecipientsController : Controller
     {
         private readonly IProductsService _productsService;
-        public RecipientsController(IProductsService productService)
+        private readonly IRecipientsService _recipientsService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly UsersViewModel userViewModel;
+        public RecipientsController(IProductsService productService, IRecipientsService recipientsService, IHttpContextAccessor httpContextAccessor)
         {
             _productsService = productService;
+            _recipientsService = recipientsService;
+            _httpContextAccessor = httpContextAccessor;
+            userViewModel = _httpContextAccessor.HttpContext.Session.Get<UsersViewModel>("user");
         }
         // GET: RecipientsController
         public ActionResult Index()
@@ -30,16 +38,20 @@ namespace WebApp.NetBanking.Controllers
 
         // POST: RecipientsController/Create
         [HttpPost]
-        public async IActionResult Create(SaveRecipientsViewModel vm)
+        public async Task<IActionResult> Create(SaveRecipientsViewModel vm)
         {
-            var user = await _productsService.Ge;
+            var product = await _productsService.GetProductByIdentifier(vm.RecipientId);
 
 
-            if (!ModelState.IsValid || user == null)
+            if (!ModelState.IsValid || product == null)
             {
                 TempData["UserExist"] = false;
                 return RedirectToAction("Index");
             }
+            vm.UserId = userViewModel.Id;
+            vm.RecipientId = product.ProductIdentifier;
+            await _recipientsService.Add(vm);
+            return RedirectToAction("Index");
         }
 
         // GET: RecipientsController/Edit/5
