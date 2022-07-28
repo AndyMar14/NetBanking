@@ -49,7 +49,7 @@ namespace WebApp.NetBanking.Controllers
                 return RedirectToAction("Index");
             }
             vm.UserId = userViewModel.Id;
-            vm.RecipientId = product.ProductIdentifier;
+            vm.RecipientId = product.Identifier;
             await _recipientsService.Add(vm);
             return RedirectToAction("Index");
         }

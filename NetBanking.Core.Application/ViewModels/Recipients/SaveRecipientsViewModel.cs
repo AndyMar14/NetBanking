@@ -13,7 +13,7 @@ namespace NetBanking.Core.Application.ViewModels.Recipients
         public string UserId { get; set; }
 
         [Required(ErrorMessage = "Debe colocar la cuenta del beneficiario")]
-        public int RecipientId { get; set; }
+        public string RecipientId { get; set; }
 
     }
 }

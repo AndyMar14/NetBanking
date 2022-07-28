@@ -12,10 +12,10 @@ namespace NetBanking.Core.Application.ViewModels.Transactions
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Debe colocar la cuenta ")]
-        public int UserProductId { get; set; }
+        public string UserProductId { get; set; }
 
         [Required(ErrorMessage = "Debe colocar la cuenta")]
-        public int RecipientProductId { get; set; }
+        public string RecipientProductId { get; set; }
         public int Type { get; set; }
 
         public DateTime Date { get; set; }
