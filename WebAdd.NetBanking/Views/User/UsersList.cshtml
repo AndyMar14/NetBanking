@@ -11,8 +11,9 @@
                     <th>Apellido</th>
                     <th>Email</th>
                     <th>
-                       Roles
+                        Roles
                     </th>
+                    <th>estado</th>
                     <th>
                         <button type="button" class="btn btn-info btn-sm" onclick="location.href='@Url.Action("RegisterUser", "User")'">Nuevo</button>
                     </th>
@@ -41,9 +42,20 @@
                         }
                         </td>
                         <td>
-                            @if(!IsAdmin)
+                            @if (user.estado)
+                            {
+                                <label style="border-radius: 50%;padding: 5px;" class="btn-success">Activo</label>
+                            }
+                            else
+                            {
+                                <label style="border-radius: 50%;padding: 5px;" class="btn-warning">Inactivo</label>
+                            }
+                        </td>
+                        <td>
+                            @if (!IsAdmin)
                             {
                                 <a class="btn btn-success" asp-controller="Products" asp-action="AddProduct" asp-route-Id="@user.Id">Ver Productos</a>
+                                <a class="btn btn-warning" asp-controller="User" asp-action="Delete" asp-route-Id="@user.Id">Inactivar</a>
                             }
                             else
                             {

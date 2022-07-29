@@ -17,5 +17,6 @@ namespace NetBanking.Core.Application.Interfaces.Services
         Task SignOutAsync();
         Task<List<RolesViewModel>> GetAllRoles();
         Task<UsersViewModel> GetUserByIdAsync(string Id);
+        Task Delete(string id);
     }
 }

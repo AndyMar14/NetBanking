@@ -16,5 +16,6 @@ namespace NetBanking.Core.Application.Interfaces.Services
         Task<ResetPasswordResponse> ResetPasswordAsync(ResetPasswordViewModel vm);
         Task SignOutAsync();
         Task<List<RolesViewModel>> GetAllRoles();
+        Task Delete(string Id);
     }
 }

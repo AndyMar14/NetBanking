@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WebApp.NetBanking.Controllers
 {
-    
+    [Authorize(Roles ="Admin")]
     public class UserController : Controller
     {
         private readonly IUserServices _userServices;
@@ -59,6 +59,13 @@ namespace WebApp.NetBanking.Controllers
             return View();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Delete(string Id)
+        {
+            await _userServices.Delete(Id);
+            ViewBag.usuarios = await _userServices.GetAllUsersAsync();
+            return View("UsersList");
+        }
         public async Task<IActionResult> LogOut()
         {
             await _userServices.SignOutAsync();

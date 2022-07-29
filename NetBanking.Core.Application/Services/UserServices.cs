@@ -62,5 +62,10 @@ namespace Application.Services
         {
             return await _accountService.GetAllRoles();
         }
+
+        public async Task  Delete(string Id)
+        {
+            await _accountService.Delete(Id);
+        }
     }
 }
