@@ -32,7 +32,7 @@ namespace NetBanking.Core.Application.Services
                 SaveProductsViewModel main = new();
 
                 main = await GetMainByUser(vm.IdUser);
-                main.Balance += vm.Balance;
+                main.Amount += vm.Amount;
                 await base.Update(main, main.Id);
             }
 
