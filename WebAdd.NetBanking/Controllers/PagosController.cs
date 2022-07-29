@@ -67,7 +67,7 @@ namespace WebApp.NetBanking.Controllers
                 ModelState.AddModelError("pagoValidation", "Este monto no es invalido");
                 return View(vm);
             }
-            var productFrom = await _productsServices.GetProductByIdentifier(vm.RecipientProductId);
+            var productFrom = await _productsServices.GetProductByIdentifier(vm.UserProductId);
             if (productFrom.Amount > vm.Amount)
             {
                 if (!ModelState.IsValid)
@@ -81,7 +81,7 @@ namespace WebApp.NetBanking.Controllers
                 ModelState.AddModelError("pagoValidation", "No tienes suficientes fondos");
             
             }
-            return View();
+            return Redirect("~/Home/Index");
         }
         
         [HttpGet]
@@ -125,7 +125,7 @@ namespace WebApp.NetBanking.Controllers
                 ModelState.AddModelError("pagoValidation", "No tienes suficientes fondos");
 
             }
-            return View();
+            return Redirect("~/Home/Index");
         }
     }
 }

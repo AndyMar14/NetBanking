@@ -33,14 +33,24 @@ namespace NetBanking.Infrastructure.Persistence.Repositories
 
             if (accountFrom != null && accountTo != null)
             {
-                if (vm.Type == 1)
+                if (vm.Type == 1 || vm.Type == 4)
                 {
                     accountFrom.Amount = (accountFrom.Amount - vm.Amount);
                     accountTo.Amount = (accountTo.Amount + vm.Amount);
                 }
                 else if (vm.Type == 2)
                 {
-
+                    if (vm.Amount > accountTo.Amount)
+                    {
+                        vm.Amount = accountTo.Balance;
+                        accountFrom.Amount = (accountFrom.Amount - accountTo.Balance);
+                        accountTo.Amount = 0;
+                    }
+                    else
+                    {
+                        accountTo.Balance = (accountTo.Balance - vm.Amount);
+                        accountFrom.Amount = (accountFrom.Amount - vm.Amount);
+                    }
                 }
                 else if (vm.Type == 3)
                 {
@@ -57,7 +67,6 @@ namespace NetBanking.Infrastructure.Persistence.Repositories
                     }
                 }
 
-                
                 var entryFrom = await _dbContext.Set<Products>().FindAsync(accountFrom.Id);
                 _dbContext.Entry(entryFrom).CurrentValues.SetValues(accountFrom);
                 await _dbContext.SaveChangesAsync();
