@@ -33,12 +33,12 @@ namespace NetBanking.Infrastructure.Persistence.Repositories
 
             if (accountFrom != null && accountTo != null)
             {
-                if (vm.Type == 1 || vm.Type == 4)
+                if (vm.Type == 1 || vm.Type == 2)
                 {
                     accountFrom.Amount = (accountFrom.Amount - vm.Amount);
                     accountTo.Amount = (accountTo.Amount + vm.Amount);
                 }
-                else if (vm.Type == 2)
+                else if (vm.Type == 3)
                 {
                     if (vm.Amount > accountTo.Amount)
                     {
@@ -52,7 +52,7 @@ namespace NetBanking.Infrastructure.Persistence.Repositories
                         accountFrom.Amount = (accountFrom.Amount - vm.Amount);
                     }
                 }
-                else if (vm.Type == 3)
+                else if (vm.Type == 4)
                 {
                     if (vm.Amount > accountTo.Amount)
                     {

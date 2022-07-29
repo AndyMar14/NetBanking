@@ -1,6 +1,20 @@
 ﻿@using NetBanking.Core.Application.ViewModels.Transactions
 @model SaveTransactionsViewModel
 <div class="container-fluid">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">seguro que desea realizar este pago?</h5>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" onclick="enviar()">Realizar</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-6 offset-3">
             <div class="card">
@@ -8,8 +22,8 @@
                     <h4>Registro de nuevo usuario</h4>
                 </div>
                 <div class="card-body">
-                    <form method="post" asp-controller="Pagos" asp-action="Register">
-                        <input type="hidden" asp-for="Type" value="4" class="form-control" />
+                    <form method="post" asp-controller="Pagos" asp-action="PagoTarjetaCredito" id="form">
+
                         <div class="mb-3">
                             <label asp-for="UserProductId" class="form-label">Cuenta de origen: </label>
                             <input asp-for="UserProductId" class="form-control" />
@@ -27,14 +41,19 @@
                             <input asp-for="RecipientProductId" class="form-control" />
                             <span asp-validation-for="RecipientProductId" class="text-danger"></span>
                         </div>
-
-                        <button type="submit" class="btn btn-primary">Realizar</button>
-                        <a asp-controller="Pagos" asp-action="Index" class="btn btn-warning">Volver atras</a>
-
                     </form>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                        Realizar
+                    </button>
+                    <a asp-controller="Pagos" asp-action="Index" class="btn btn-warning">Volver atras</a>
                 </div>
 
             </div>
         </div>
     </div>
 </div>
+<script>
+    function enviar() {
+        $('#form').submit();
+    }
+</script>

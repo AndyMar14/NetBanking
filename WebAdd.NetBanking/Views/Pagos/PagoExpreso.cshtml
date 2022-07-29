@@ -26,9 +26,13 @@
                 <div class="card-body">
                     <form method="post" asp-controller="Pagos" asp-action="PagoExpreso" id="form">
                         <div class="mb-3">
-                            <label asp-for="UserProductId" class="form-label">Cuenta de origen: </label>
-                            <input asp-for="UserProductId" class="form-control" />
-                            <span asp-validation-for="UserProductId" class="text-danger"></span>
+                            <label asp-for="UserProductId" class="form-label">Cuenta Origen: </label>
+                            <select asp-for="UserProductId" class="form-select form-control">
+                                @foreach (var item in ViewBag.MyProducts)
+                                {
+                                    <option value="@item.Identifier">@item.Identifier (@item.ProductType)</option>
+                                }
+                            </select>
                         </div>
 
                         <div class="mb-3">
@@ -42,14 +46,19 @@
                             <input asp-for="RecipientProductId" class="form-control" />
                             <span asp-validation-for="RecipientProductId" class="text-danger"></span>
                         </div>
-
-                        <button type="submit" class="btn btn-primary">Realizar</button>
-                        <a asp-controller="Pagos" asp-action="Index" class="btn btn-warning">Volver atras</a>
-
                     </form>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                        Realizar
+                    </button>
+                    <a asp-controller="Pagos" asp-action="Index" class="btn btn-warning">Volver atras</a>
                 </div>
 
             </div>
         </div>
     </div>
 </div>
+<script>
+    function enviar() {
+        $('#form').submit();
+    }
+</script>
