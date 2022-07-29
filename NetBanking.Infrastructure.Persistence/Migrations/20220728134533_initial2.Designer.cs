@@ -10,8 +10,8 @@ using NetBanking.Infrastructure.Persistence.Contexts;
 namespace NetBanking.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20220727053505_andy2")]
-    partial class andy2
+    [Migration("20220728134533_initial2")]
+    partial class initial2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,6 +34,23 @@ namespace NetBanking.Infrastructure.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("BankProducts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Cuenta de ahorro"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Tarjeta de crédito"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Préstamo"
+                        });
                 });
 
             modelBuilder.Entity("NetBanking.Core.Domain.Entities.Products", b =>
@@ -52,8 +69,8 @@ namespace NetBanking.Infrastructure.Persistence.Migrations
                     b.Property<string>("IdUser")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Identifier")
-                        .HasColumnType("int");
+                    b.Property<string>("Identifier")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Limit")
                         .HasColumnType("float");
@@ -69,6 +86,24 @@ namespace NetBanking.Infrastructure.Persistence.Migrations
                     b.HasIndex("IdProducType");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("NetBanking.Core.Domain.Entities.Recipients", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("IdRecipient")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Recipients");
                 });
 
             modelBuilder.Entity("NetBanking.Core.Domain.Entities.Transactions", b =>

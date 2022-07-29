@@ -9,8 +9,8 @@ namespace NetBanking.Core.Domain.Entities
     public class Recipients
     {
         public int Id { get; set; }
-        public int IdUser { get; set; }
-        public int IdRecipient { get; set; }
+        public string IdUser { get; set; }
+        public string IdRecipient { get; set; }
 
         //NAVIGATION PROPERTIES
     }

@@ -16,9 +16,9 @@
             <form method="post" asp-controller="Recipients" asp-action="Create">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label asp-for="RecipientId" class="form-label">Numero de Cuenta: </label>
-                        <input type="text" asp-for="RecipientId" class="form-control" />
-                        <span asp-validation-for="RecipientId" class="text-danger"></span>
+                        <label asp-for="IdRecipient" class="form-label">Numero de Cuenta: </label>
+                        <input type="text" asp-for="IdRecipient" class="form-control" />
+                        <span asp-validation-for="IdRecipient" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -33,21 +33,31 @@
     <div class="col-md-12">
         @Html.ValidationSummary(false, "", new { @class = "text-danger" })
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            Agregar Amigo
+            Agregar Beneficiario
         </button>
+        <span style="color:red;font-size:20px">@TempData["ErrorMessge"]</span>
     </div>
     <div class="col-md-12">
         <br />
         <h4>Beneficiarios</h4>
         <table class="table">
+
             <tbody>
-                @*@foreach (UsersViewModel item in ViewBag.Recipients)
-                {
-                    <tr>
-                        <td>@item.FirstName</td>
-                        <td><a asp-controller="Amigos" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger float-right">Borrar</a></td>
-                    </tr>
-                }*@
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Cuenta</th>
+                    <th></th>
+                </tr>
+            @foreach (RecipientsViewModel item in ViewBag.Recipients)
+            {
+                <tr>
+                    <td>@item.Recipient.FirstName</td>
+                    <td>@item.Recipient.LastName</td>
+                    <td>@item.IdRecipient</td>
+                    <td><a asp-controller="Recipients" asp-action="Delete" asp-route-Identifier="@item.IdRecipient" class="btn btn-outline-danger float-right">Borrar</a></td>
+                </tr>
+            }
             </tbody>
         </table>
     </div>

@@ -5,15 +5,20 @@
         <div class="col-6 offset-3">
             <div class="card">
                 <div class="card-header bg-dark text-light">
-                    <h4>Registro de nuevo usuario</h4>
+                    <h4>Pago a Beneficiario</h4>
                 </div>
                 <div class="card-body">
-                    <form method="post" asp-controller="User" asp-action="Register">
+                    <form method="post" asp-controller="Pagos" asp-action="PagoPrestamo">
+                        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
                         <input type="hidden" asp-for="Type" value="3" class="form-control" />
                         <div class="mb-3">
-                            <label asp-for="UserProductId" class="form-label">Cuenta de origen: </label>
-                            <input asp-for="UserProductId" class="form-control" />
-                            <span asp-validation-for="UserProductId" class="text-danger"></span>
+                            <label asp-for="UserProductId" class="form-label">Cuenta Origen: </label>
+                            <select asp-for="UserProductId" class="form-select form-control">
+                                @foreach (var item in ViewBag.MyProducts)
+                                {
+                                    <option value="@item.Identifier">@item.Identifier (@item.ProductType)</option>
+                                }
+                            </select>
                         </div>
 
                         <div class="mb-3">
@@ -23,9 +28,13 @@
                         </div>
 
                         <div class="mb-3">
-                            <label asp-for="RecipientProductId" class="form-label">Prestamo de destino: </label>
-                            <input asp-for="RecipientProductId" class="form-control" />
-                            <span asp-validation-for="RecipientProductId" class="text-danger"></span>
+                            <label asp-for="RecipientProductId" class="form-label">Beneficiario: </label>
+                            <select asp-for="RecipientProductId" class="form-select form-control">
+                                @foreach (var item in ViewBag.MyPrestamos)
+                                {
+                                    <option value="@item.IdRecipient">@item.IdRecipient (@item.Recipient.FirstName)</option>
+                                }
+                            </select>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Realizar</button>

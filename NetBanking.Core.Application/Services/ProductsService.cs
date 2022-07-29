@@ -56,7 +56,7 @@ namespace NetBanking.Core.Application.Services
                 MainProduct = products.MainProduct,
                 Identifier = products.Identifier,
                 Limit = products.Limit,
-                LoanAmount = products.Monto,
+                Amount = products.Amount,
                 Balance = products.Balance
             }).ToList();
         }
@@ -70,7 +70,7 @@ namespace NetBanking.Core.Application.Services
                 MainProduct = products.MainProduct,
                 Identifier = products.Identifier,
                 Limit = products.Limit,
-                LoanAmount = products.Monto,
+                Amount = products.Amount,
                 ProductName = products.Produc.Name,
                 Balance = products.Balance
             }).ToList();
@@ -83,7 +83,34 @@ namespace NetBanking.Core.Application.Services
 
         }
 
-        
+        public async Task<List<ProductsViewModel>> GetAllProductsByIdUser(string Id, FilterProductViewModel filters)
+        {
+            var productsList = await _productsRepository.GetAllAsync();
+            var products = productsList.Where(products => products.IdUser == Id).Select(products => new ProductsViewModel
+            {
+                IdUser = products.IdUser,
+                MainProduct = products.MainProduct,
+                Identifier = products.Identifier,
+                Limit = products.Limit,
+                Amount = products.Amount,
+                Balance = products.Balance,
+                IdProductType = products.IdProducType
+            }).ToList();
+
+            if (filters.Type != null)
+            {
+                products = products.Where(product => product.IdProductType == filters.Type.Value).ToList();
+            }
+
+            foreach (var p in products)
+            {
+                var type = await _productsRepository.GetProductType(p.IdProductType);
+                p.ProductType = type;
+            }
+            return products;
+
+        }
+
         public async Task<string> GenerateSequence()
         {
             var productsList = await _productsRepository.GetAllAsync();

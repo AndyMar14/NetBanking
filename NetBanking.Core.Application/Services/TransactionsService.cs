@@ -21,9 +21,9 @@ namespace NetBanking.Core.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<TransactionsViewModel> Pay(SaveTransactionsViewModel vm)
+        public async Task<Transactions> Pay(SaveTransactionsViewModel vm)
         {
-            TransactionsViewModel transaction = await _transactionsRepository.Pay(vm);
+            Transactions transaction = await _transactionsRepository.Pay(vm);
 
             return transaction;
         }

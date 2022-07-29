@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NetBanking.Infrastructure.Persistence.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initial2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -21,22 +21,17 @@ namespace NetBanking.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "Recipients",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserType = table.Column<int>(type: "int", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Identification = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    User = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    IdUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IdRecipient = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_Recipients", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -45,10 +40,10 @@ namespace NetBanking.Infrastructure.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IdUser = table.Column<int>(type: "int", nullable: false),
+                    IdUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MainProduct = table.Column<int>(type: "int", nullable: false),
                     IdProducType = table.Column<int>(type: "int", nullable: false),
-                    Identifier = table.Column<int>(type: "int", nullable: false),
+                    Identifier = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Limit = table.Column<double>(type: "float", nullable: false),
                     Monto = table.Column<double>(type: "float", nullable: false),
                     Balance = table.Column<double>(type: "float", nullable: false)
@@ -60,30 +55,6 @@ namespace NetBanking.Infrastructure.Persistence.Migrations
                         name: "FK_Products_BankProducts_IdProducType",
                         column: x => x.IdProducType,
                         principalTable: "BankProducts",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Products_Users_IdUser",
-                        column: x => x.IdUser,
-                        principalTable: "Users",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Recipients",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    IdUser = table.Column<int>(type: "int", nullable: false),
-                    IdRecipient = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Recipients", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Recipients_Users_IdRecipient",
-                        column: x => x.IdRecipient,
-                        principalTable: "Users",
                         principalColumn: "Id");
                 });
 
@@ -114,20 +85,25 @@ namespace NetBanking.Infrastructure.Persistence.Migrations
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.InsertData(
+                table: "BankProducts",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 1, "Cuenta de ahorro" });
+
+            migrationBuilder.InsertData(
+                table: "BankProducts",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 2, "Tarjeta de crédito" });
+
+            migrationBuilder.InsertData(
+                table: "BankProducts",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 3, "Préstamo" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Products_IdProducType",
                 table: "Products",
                 column: "IdProducType");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Products_IdUser",
-                table: "Products",
-                column: "IdUser");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Recipients_IdRecipient",
-                table: "Recipients",
-                column: "IdRecipient");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Transactions_IdRecipientProduct",
@@ -153,9 +129,6 @@ namespace NetBanking.Infrastructure.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "BankProducts");
-
-            migrationBuilder.DropTable(
-                name: "Users");
         }
     }
 }

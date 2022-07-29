@@ -10,5 +10,7 @@ namespace NetBanking.Core.Application.Interfaces.Services
 {
     public interface IRecipientsService : IGenericService<SaveRecipientsViewModel, RecipientsViewModel, Recipients>
     {
+        Task<List<RecipientsViewModel>> GetRecipients(string id);
+        Task DeleteRecipient(string Id);
     }
 }

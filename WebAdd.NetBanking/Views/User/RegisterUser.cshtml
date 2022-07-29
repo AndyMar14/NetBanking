@@ -96,9 +96,9 @@
                                     <span asp-validation-for="Email" class="text-danger"></span>
                                 </div>
                                 <div class="col-6" id="monto">
-                                    <label asp-for="MontoInicial" class="form-label">Monto Inicial: </label>
-                                    <input asp-for="MontoInicial" class="form-control" />
-                                    <span asp-validation-for="MontoInicial" class="text-danger"></span>
+                                    <label asp-for="Amount" class="form-label">Monto Inicial: </label>
+                                    <input asp-for="Amount" class="form-control" />
+                                    <span asp-validation-for="Amount" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
@@ -119,9 +119,9 @@
         var selectedOption = selection.options[selection.selectedIndex].index;
 
         if (selectedOption == 0) {
-            $("#monto").hide();
-        } else if (selectedOption == 1) {
             $("#monto").show();
+        } else if (selectedOption == 1) {
+            $("#monto").hide();
         }
     }
     window.onload = function () {

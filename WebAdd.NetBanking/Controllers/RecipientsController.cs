@@ -25,8 +25,9 @@ namespace WebApp.NetBanking.Controllers
             userViewModel = _httpContextAccessor.HttpContext.Session.Get<UsersViewModel>("user");
         }
         // GET: RecipientsController
-        public ActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            ViewBag.Recipients = await _recipientsService.GetRecipients(userViewModel.Id);
             return View();
         }
 
@@ -40,16 +41,15 @@ namespace WebApp.NetBanking.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(SaveRecipientsViewModel vm)
         {
-            var product = await _productsService.GetProductByIdentifier(vm.RecipientId);
-
-
-            if (!ModelState.IsValid || product == null)
+            var product = await _productsService.GetProductByIdentifier(vm.IdRecipient);
+            TempData["ErrorMessge"] = "";
+            if (!ModelState.IsValid || product.HasError == true)
             {
-                TempData["UserExist"] = false;
+                TempData["ErrorMessge"] = product.ErrorMessage;
                 return RedirectToAction("Index");
             }
-            vm.UserId = userViewModel.Id;
-            vm.RecipientId = product.Identifier;
+            vm.IdUser = userViewModel.Id;
+            vm.IdRecipient = product.Identifier;
             await _recipientsService.Add(vm);
             return RedirectToAction("Index");
         }
@@ -82,18 +82,14 @@ namespace WebApp.NetBanking.Controllers
         }
 
         // POST: RecipientsController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        [HttpGet]
+        public async Task<IActionResult> Delete(string Identifier)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+
+            await _recipientsService.DeleteRecipient(Identifier);
+
+            return RedirectToAction("Index");
+        
         }
     }
 }

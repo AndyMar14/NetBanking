@@ -21,7 +21,7 @@ namespace NetBanking.Infrastructure.Persistence.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<TransactionsViewModel> Pay(SaveTransactionsViewModel vm)
+        public async Task<Transactions> Pay(SaveTransactionsViewModel vm)
         {
             Products accountFrom = await _dbContext.Set<Products>()
                .FirstOrDefaultAsync(a => a.Identifier == vm.UserProductId);
@@ -29,23 +29,53 @@ namespace NetBanking.Infrastructure.Persistence.Repositories
             Products accountTo = await _dbContext.Set<Products>()
                 .FirstOrDefaultAsync(a => a.Identifier == vm.RecipientProductId);
 
+            Transactions trans = new();
+
             if (accountFrom != null && accountTo != null)
             {
+                if (vm.Type == 1)
+                {
+                    accountFrom.Amount = (accountFrom.Amount - vm.Amount);
+                    accountTo.Amount = (accountTo.Amount + vm.Amount);
+                }
+                else if (vm.Type == 2)
+                {
 
-                accountFrom.Monto = accountFrom.Monto - vm.Amount;
+                }
+                else if (vm.Type == 3)
+                {
+                    if (vm.Amount > accountTo.Amount)
+                    {
+                        vm.Amount = accountTo.Amount;
+                        accountFrom.Amount = (accountFrom.Amount - accountTo.Amount);
+                        accountTo.Amount = 0 ;
+                    }
+                    else
+                    {
+                        accountTo.Amount = (accountTo.Amount - vm.Amount);
+                        accountFrom.Amount = (accountFrom.Amount - vm.Amount);
+                    }
+                }
+
+                
                 var entryFrom = await _dbContext.Set<Products>().FindAsync(accountFrom.Id);
                 _dbContext.Entry(entryFrom).CurrentValues.SetValues(accountFrom);
                 await _dbContext.SaveChangesAsync();
 
-                accountTo.Monto = accountTo.Monto + vm.Amount;
                 var entryTo = await _dbContext.Set<Products>().FindAsync(accountTo.Id);
                 _dbContext.Entry(entryTo).CurrentValues.SetValues(accountTo);
                 await _dbContext.SaveChangesAsync();
+
+                trans.IdUserProduct = vm.UserProductId;
+                trans.IdRecipientProduct = vm.RecipientProductId;
+                trans.Fecha = DateTime.Now;
+                trans.Type = vm.Type;
+                trans.Amount = vm.Amount;
+                await _dbContext.Set<Transactions>().AddAsync(trans);
+                await _dbContext.SaveChangesAsync();
             }
 
-
-            TransactionsViewModel Trans = new();
-            return Trans;
+            return trans;
         }
     }
 }

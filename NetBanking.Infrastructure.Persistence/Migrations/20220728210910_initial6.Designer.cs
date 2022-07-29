@@ -10,8 +10,8 @@ using NetBanking.Infrastructure.Persistence.Contexts;
 namespace NetBanking.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20220728005248_a")]
-    partial class a
+    [Migration("20220728210910_initial6")]
+    partial class initial6
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -60,8 +60,11 @@ namespace NetBanking.Infrastructure.Persistence.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("Balance")
-                        .HasColumnType("float");
+                    b.Property<float>("Amount")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Balance")
+                        .HasColumnType("real");
 
                     b.Property<int>("IdProducType")
                         .HasColumnType("int");
@@ -72,20 +75,35 @@ namespace NetBanking.Infrastructure.Persistence.Migrations
                     b.Property<string>("Identifier")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Limit")
-                        .HasColumnType("float");
+                    b.Property<float>("Limit")
+                        .HasColumnType("real");
 
                     b.Property<int>("MainProduct")
                         .HasColumnType("int");
-
-                    b.Property<double>("Monto")
-                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
                     b.HasIndex("IdProducType");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("NetBanking.Core.Domain.Entities.Recipients", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("IdRecipient")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Recipients");
                 });
 
             modelBuilder.Entity("NetBanking.Core.Domain.Entities.Transactions", b =>
@@ -95,26 +113,32 @@ namespace NetBanking.Infrastructure.Persistence.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<float>("Amount")
+                        .HasColumnType("real");
+
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdRecipientProduct")
+                    b.Property<string>("IdRecipientProduct")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdUserProduct")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ProducToId")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdUserProduct")
+                    b.Property<int?>("ProductFromId")
                         .HasColumnType("int");
-
-                    b.Property<double>("Monto")
-                        .HasColumnType("float");
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdRecipientProduct");
+                    b.HasIndex("ProducToId");
 
-                    b.HasIndex("IdUserProduct");
+                    b.HasIndex("ProductFromId");
 
                     b.ToTable("Transactions");
                 });
@@ -133,16 +157,12 @@ namespace NetBanking.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("NetBanking.Core.Domain.Entities.Transactions", b =>
                 {
                     b.HasOne("NetBanking.Core.Domain.Entities.Products", "ProducTo")
-                        .WithMany("TransactionsIn")
-                        .HasForeignKey("IdRecipientProduct")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("ProducToId");
 
                     b.HasOne("NetBanking.Core.Domain.Entities.Products", "ProductFrom")
-                        .WithMany("TransactionsOut")
-                        .HasForeignKey("IdUserProduct")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("ProductFromId");
 
                     b.Navigation("ProductFrom");
 
@@ -152,13 +172,6 @@ namespace NetBanking.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("NetBanking.Core.Domain.Entities.BankProducts", b =>
                 {
                     b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("NetBanking.Core.Domain.Entities.Products", b =>
-                {
-                    b.Navigation("TransactionsIn");
-
-                    b.Navigation("TransactionsOut");
                 });
 #pragma warning restore 612, 618
         }
