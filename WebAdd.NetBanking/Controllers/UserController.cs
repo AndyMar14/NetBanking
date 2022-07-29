@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WebApp.NetBanking.Controllers
 {
+
     public class UserController : Controller
     {
         private readonly IUserServices _userServices;
