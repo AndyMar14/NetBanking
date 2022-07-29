@@ -27,7 +27,7 @@ namespace NetBanking.Core.Application.ViewModels.Products
 
         [Required(ErrorMessage = "Debe colocar el límite del préstamo")]
         [DataType(DataType.Currency)]
-        public float Amount { get; set; }
+        public double Amount { get; set; }
         //vm.Categories = await _categoryService.GetAllViewModel();
         public List<BankProductsViewModel> Products { get; set; }
     }

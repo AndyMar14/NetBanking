@@ -24,20 +24,28 @@ namespace WebApp.NetBanking.Controllers
             SaveProductsViewModel vm = new();
             vm.IdUser = Id;
             vm.Products = await _bankProductService.GetAllViewModel();
-            return View(vm);
+            List<ProductsViewModel> vm2 = await _productService.GetAllProductsWithIncludesAdmin(Id);
+            ViewBag.Products = vm2;
+            return View("../Cliente/ListClienteProducts", vm);
         }
 
         [HttpPost]
         public async Task<IActionResult> AddProduct(SaveProductsViewModel vm)
         {
+            List<ProductsViewModel> vm2 = await _productService.GetAllProductsWithIncludesAdmin(vm.IdUser);
+            vm.Products = await _bankProductService.GetAllViewModel();
+            ViewBag.Products = vm2;
             if (!ModelState.IsValid)
             {
+                vm.Products = await _bankProductService.GetAllViewModel();
                 return View(vm);
             }
 
             vm.Identifier = await _productService.GenerateSequence();
+
             await _productService.Add(vm);
-            return View(vm);
+
+            return View("../Cliente/ListClienteProducts", vm);
         }
     }
 }

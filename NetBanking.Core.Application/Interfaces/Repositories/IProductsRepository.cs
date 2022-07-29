@@ -11,5 +11,6 @@ namespace NetBanking.Core.Application.Interfaces.Repositories
     public interface IProductsRepository : IGenericRepository<Products>
     {
         Task<ProductsViewModel> GetProductByIdentifier(string Identifire);
+        Task<SaveProductsViewModel> GetMainByUser(string Id);
     }
 }
