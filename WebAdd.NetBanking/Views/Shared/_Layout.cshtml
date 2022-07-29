@@ -30,7 +30,7 @@
                     <ul class="navbar-nav flex-grow-1">
                         @if (User != null)
                         {
-                            if (isClient)
+                            if (isClient && !isAdmin)
                             {
                                 <li class="nav-item">
                                     <ul>
