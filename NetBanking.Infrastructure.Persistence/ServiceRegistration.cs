@@ -35,6 +35,7 @@ namespace NetBanking.Infrastructure.Persistence
             services.AddTransient<ITransactionsRepository, TransactionsRepository>();
             services.AddTransient<IProductsRepository, ProductsRepository>();
             services.AddTransient<IRecipientsRepository, RecipientsRepository>();
+            services.AddTransient<IBankProductsRepository, BankProductsRepository>();
             #endregion
         }
     }

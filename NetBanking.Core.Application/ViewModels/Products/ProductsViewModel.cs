@@ -29,7 +29,7 @@ namespace NetBanking.Core.Application.ViewModels.Products
         public bool HasError { get; set; }
         public string ErrorMessage { get; set; }
 
-
+         public string ProductName { get; set; }
         public UsersViewModel Users { get; set; }
         public BankProductsViewModel Products { get; set; }
 

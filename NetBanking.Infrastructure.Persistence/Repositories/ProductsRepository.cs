@@ -37,6 +37,7 @@ namespace NetBanking.Infrastructure.Persistence.Repositories
             }
             return productVm;
         }
+        
         public async Task<string> GetProductType (int Type)
         {
             BankProducts product = await _dbContext.Set<BankProducts>()
@@ -49,6 +50,27 @@ namespace NetBanking.Infrastructure.Persistence.Repositories
             }
            
             return productVm.Name;
+        }
+        
+        public async Task<SaveProductsViewModel> GetMainByUser(string Id)
+        {
+            Products product = await _dbContext.Set<Products>()
+             .FirstOrDefaultAsync(p => p.IdUser == Id && p.MainProduct == 1);
+            SaveProductsViewModel productVm = new();
+            if (product != null)
+            {
+
+                productVm.Identifier = product.Identifier;
+                productVm.IdUser = product.IdUser;
+                productVm.Balance = product.Balance;
+                productVm.MainProduct = product.MainProduct;
+                productVm.IdProducType = product.IdProducType;
+                productVm.Identifier = product.Identifier;
+                productVm.Balance = product.Balance;
+                productVm.Limit = product.Limit;
+                productVm.Amount = product.Monto;
+            }
+            return productVm;
         }
     }
 }

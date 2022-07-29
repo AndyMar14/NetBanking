@@ -1,0 +1,56 @@
+﻿@using NetBanking.Core.Application.ViewModels.Products;
+@model SaveProductsViewModel
+@{
+    ViewData["Title"] = "Registro de clientes";
+}
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card">
+                <div class="card-header bg-dark text-light">
+                    <h4>Registro de nuevo cliente</h4>
+                </div>
+                <div class="card-body">
+
+
+                    <form method="post" asp-controller="Products" asp-action="AddProduct">
+                        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+                        <input class="hidden" asp-for="IdUser" value="@Model.IdUser" />
+                        <input class="hidden" asp-for="Identifier" value="" />
+                        <input class="hidden" asp-for="MainProduct" value="0" />
+
+                        <div class="mb-3">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label asp-for="IdProducType" class="form-label">Rol: </label>
+                                    <select asp-for="IdProducType" asp-items="@(new SelectList(Model.Products,"Id","Name"))" class="form-control"  >
+                                    </select>
+                                    <span asp-validation-for="IdProducType" class="text-danger"></span>
+                                </div>
+                                <div class="col-6" id="monto">
+                                    <label asp-for="Limit" class="form-label">Monto Inicial: </label>
+                                    <input asp-for="Limit" class="form-control" />
+                                    <span asp-validation-for="Limit" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+ 
+</script>
+
+<style>
+    .hidden{
+        display:none;
+    }
+</style>

@@ -1,10 +1,62 @@
-﻿@model List<NetBanking.Core.Application.ViewModels.Products.ProductsViewModel>;
+﻿@model NetBanking.Core.Application.ViewModels.Products.SaveProductsViewModel;
 @{
     int cont = 0;
-    float monto = 0;
+    double monto = 0;
 }
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Añadir usuario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form method="post" asp-controller="Products" asp-action="AddProduct">
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+                <input class="hidden" asp-for="IdUser" value="@Model.IdUser" />
+                <input class="hidden" asp-for="Identifier" value="" />
+                <input class="hidden" asp-for="MainProduct" value="0" />
+                <input class="hidden" asp-for="Id" value="0" />
+
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-6">
+                            <label asp-for="IdProducType" class="form-label">Tipo producto: </label>
+                            <select asp-for="IdProducType" asp-items="@(new SelectList(Model.Products,"Id","Name"))" class="form-control">
+                            </select>
+                            <span asp-validation-for="IdProducType" class="text-danger"></span>
+                        </div>
+                        <div class="col-6" id="monto">
+                            <label asp-for="Balance" class="form-label">Monto: </label>
+                            <input asp-for="Balance" class="form-control" />
+                            <span asp-validation-for="Balance" class="text-danger"></span>
+                        </div>
+                        <div class="col-6" id="limit">
+                            <label asp-for="Limit" class="form-label">Limite: </label>
+                            <input asp-for="Limit" class="form-control" />
+                            <span asp-validation-for="Limit" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-md-12">
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Agregar Producto
+        </button>
+        <span style="color:red;font-size:20px">@TempData["ErrorMessge"]</span>
+    </div>
+    <div class="col-md-12">
+        <br />
+        <h4>Beneficiarios</h4>
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -17,12 +69,24 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (NetBanking.Core.Application.ViewModels.Products.ProductsViewModel products in Model)
+                @foreach (NetBanking.Core.Application.ViewModels.Products.ProductsViewModel products in ViewBag.Products)
                 {
                     cont++;
+                    if (products.IdProductType == 1)
+                    {
+                        monto = products.Balance;
+                    }
+                    else if(products.IdProductType == 2)
+                    {
+                        monto =  products.Balance;
+                    }
+                    else
+                    {
+                        monto = products.Balance;
+                    }
                     <tr>
                         <td>@cont</td>
-                        <td>@products.Products.Name</td>
+                        <td>@products.ProductName</td>
                         <td>@monto</td>
                     </tr>
                 }
@@ -30,3 +94,27 @@
         </table>
     </div>
 </div>
+
+<style>
+    .hidden{
+        display:none;
+    }
+</style>
+
+<script>
+    var el = document.getElementById('IdProducType');
+    var element = document.getElementById('limit');
+    var monto = document.getElementById('monto');
+    element.classList.add('hidden')
+
+    el.addEventListener('change', (e) => {
+        if (e.target.value == 2) {
+            element.classList.remove('hidden')
+            monto.classList.add('hidden')
+        } else {
+            element.classList.add('hidden')
+            monto.classList.remove('hidden')
+        }
+    })
+
+</script>

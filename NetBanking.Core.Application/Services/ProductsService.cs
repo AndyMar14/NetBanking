@@ -27,9 +27,26 @@ namespace NetBanking.Core.Application.Services
         }
         public override async Task<SaveProductsViewModel> Add(SaveProductsViewModel vm)
         {
+            if (vm.IdProducType == 3)
+            {
+                SaveProductsViewModel main = new();
+
+                main = await GetMainByUser(vm.IdUser);
+                main.Balance += vm.Balance;
+                await base.Update(main, main.Id);
+            }
+
             SaveProductsViewModel productsVm = await base.Add(vm);
             return productsVm;
         }
+
+        public async Task<SaveProductsViewModel> GetMainByUser(string Id)
+        {
+            var product = await _productsRepository.GetMainByUser(Id);
+            return product;
+        }
+
+
         public async Task<List<ProductsViewModel>> GetAllProductsWithIncludes()
         {
             var productsList = await _productsRepository.GetAllWithIncludeAsync(new List<string> { "Products", "Users" });
@@ -54,6 +71,7 @@ namespace NetBanking.Core.Application.Services
                 Identifier = products.Identifier,
                 Limit = products.Limit,
                 Amount = products.Amount,
+                ProductName = products.Produc.Name,
                 Balance = products.Balance
             }).ToList();
         }
