@@ -33,13 +33,35 @@ namespace NetBanking.Infrastructure.Persistence.Repositories
 
             if (accountFrom != null && accountTo != null)
             {
+                if (vm.Type == 1)
+                {
+                    accountFrom.Amount = (accountFrom.Amount - vm.Amount);
+                    accountTo.Amount = (accountTo.Amount + vm.Amount);
+                }
+                else if (vm.Type == 2)
+                {
 
-                accountFrom.Amount = (accountFrom.Amount - vm.Amount);
+                }
+                else if (vm.Type == 3)
+                {
+                    if (vm.Amount > accountTo.Amount)
+                    {
+                        vm.Amount = accountTo.Amount;
+                        accountFrom.Amount = (accountFrom.Amount - accountTo.Amount);
+                        accountTo.Amount = 0 ;
+                    }
+                    else
+                    {
+                        accountTo.Amount = (accountTo.Amount - vm.Amount);
+                        accountFrom.Amount = (accountFrom.Amount - vm.Amount);
+                    }
+                }
+
+                
                 var entryFrom = await _dbContext.Set<Products>().FindAsync(accountFrom.Id);
                 _dbContext.Entry(entryFrom).CurrentValues.SetValues(accountFrom);
                 await _dbContext.SaveChangesAsync();
 
-                accountTo.Amount = (accountTo.Amount + vm.Amount);
                 var entryTo = await _dbContext.Set<Products>().FindAsync(accountTo.Id);
                 _dbContext.Entry(entryTo).CurrentValues.SetValues(accountTo);
                 await _dbContext.SaveChangesAsync();
@@ -47,7 +69,7 @@ namespace NetBanking.Infrastructure.Persistence.Repositories
                 trans.IdUserProduct = vm.UserProductId;
                 trans.IdRecipientProduct = vm.RecipientProductId;
                 trans.Fecha = DateTime.Now;
-                trans.Type = 1;
+                trans.Type = vm.Type;
                 trans.Amount = vm.Amount;
                 await _dbContext.Set<Transactions>().AddAsync(trans);
                 await _dbContext.SaveChangesAsync();

@@ -65,7 +65,7 @@ namespace NetBanking.Core.Application.Services
 
         }
 
-        public async Task<List<ProductsViewModel>> GetAllProductsByIdUser(string Id)
+        public async Task<List<ProductsViewModel>> GetAllProductsByIdUser(string Id, FilterProductViewModel filters)
         {
             var productsList = await _productsRepository.GetAllAsync();
             var products = productsList.Where(products => products.IdUser == Id).Select(products => new ProductsViewModel
@@ -78,6 +78,11 @@ namespace NetBanking.Core.Application.Services
                 Balance = products.Balance,
                 IdProductType = products.IdProducType
             }).ToList();
+
+            if (filters.Type != null)
+            {
+                products = products.Where(product => product.IdProductType == filters.Type.Value).ToList();
+            }
 
             foreach (var p in products)
             {

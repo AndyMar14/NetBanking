@@ -14,7 +14,7 @@ namespace NetBanking.Core.Application.ViewModels.Transactions
         [Required(ErrorMessage = "Debe colocar la cuenta ")]
         public string UserProductId { get; set; }
 
-        [Required(ErrorMessage = "Debe colocar la cuenta")]
+        [Required(ErrorMessage = "Debe colocar el destino")]
         public string RecipientProductId { get; set; }
         public int Type { get; set; }
 

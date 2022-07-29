@@ -5,7 +5,7 @@
         <div class="col-6 offset-3">
             <div class="card">
                 <div class="card-header bg-dark text-light">
-                    <h4>Registro de nuevo usuario</h4>
+                    <h4>Pago a Prestamo</h4>
                 </div>
                 <div class="card-body">
                     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
@@ -20,12 +20,10 @@
                                     <option value="@item.Identifier">@item.Identifier (@item.ProductType)</option>
                                 }
                             </select>
-                            <span asp-validation-for="UserProductId" class="text-danger"></span>
                         </div>
                         <div class="mb-3">
                             <label asp-for="Amount" class="form-label">Monto: </label>
                             <input asp-for="Amount" type="number" class="form-control" />
-                            <span asp-validation-for="Amount" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
@@ -36,7 +34,6 @@
                                     <option value="@item.IdRecipient">@item.IdRecipient (@item.Recipient.FirstName)</option>
                                 }
                             </select>
-                            <span asp-validation-for="RecipientProductId" class="text-danger"></span>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Realizar</button>
