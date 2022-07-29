@@ -32,7 +32,91 @@ namespace WebApp.NetBanking.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            return View(); 
+        }
+        [HttpGet]
+        public async Task<IActionResult> TransferenciaEntreCuentas()
+        {
+            FilterProductViewModel filters = new();
+            filters.Type = 1;
+            ViewBag.MyProducts = await _productsServices.GetAllProductsByIdUser(userViewModel.Id, filters);
+
+            return View(new SaveTransactionsViewModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> TransferenciaEntreCuentas(SaveTransactionsViewModel vm)
+        {
+            FilterProductViewModel filters = new();
+            filters.Type = 1;
+            ViewBag.MyProducts = await _productsServices.GetAllProductsByIdUser(userViewModel.Id, filters);
+            
+            if (vm.UserProductId == vm.RecipientProductId)
+            {
+                ModelState.AddModelError("pagoValidation", "No puedes transferir a la misma cuenta");
+                return View(vm);
+            }
+
+            var productFrom = await _productsServices.GetProductByIdentifier(vm.UserProductId);
+
+            if (productFrom.Amount > vm.Amount)
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View(vm);
+                }
+                vm.Type = 6;
+                await _transactionsServices.Pay(vm);
+            }
+            else
+            {
+                ModelState.AddModelError("pagoValidation", "No tienes suficientes fondos");
+                return View(vm);
+            }
+
+            return Redirect("~/Home/Index");
+        }
+        [HttpGet]
+        public async Task<IActionResult> AvanceDeEfectivo()
+        {
+            FilterProductViewModel filters = new();
+            filters.Type = 1;
+            ViewBag.MyProducts = await _productsServices.GetAllProductsByIdUser(userViewModel.Id, filters);
+
+            filters.Type = 2;
+            ViewBag.MyCards = await _productsServices.GetAllProductsByIdUser(userViewModel.Id, filters);
+            return View(new SaveTransactionsViewModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AvanceDeEfectivo(SaveTransactionsViewModel vm)
+        {
+            FilterProductViewModel filters = new();
+            filters.Type = 1;
+            ViewBag.MyProducts = await _productsServices.GetAllProductsByIdUser(userViewModel.Id, filters);
+            filters.Type = 2;
+            ViewBag.MyCards = await _productsServices.GetAllProductsByIdUser(userViewModel.Id, filters);
+
+            var productFrom = await _productsServices.GetProductByIdentifier(vm.UserProductId);
+
+            if (vm.Amount <= 0)
+            {
+                ModelState.AddModelError("pagoValidation", "Este Monto no es valido");
+                return View(vm);
+            }else if ((vm.Amount + productFrom.Balance) > productFrom.Limit)
+            {
+                ModelState.AddModelError("pagoValidation", "El monto Solicitado excede el limite");
+                return View(vm);
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(vm);
+            }
+            vm.Type = 5;
+            await _transactionsServices.Pay(vm);
+           
+            return Redirect("~/Home/Index");
         }
 
         [HttpGet]
@@ -58,10 +142,12 @@ namespace WebApp.NetBanking.Controllers
             }
 
             var productFrom = await _productsServices.GetProductByIdentifier(vm.UserProductId);
+            var productTo = await _productsServices.GetProductByIdentifier(vm.RecipientProductId);
 
-            if (productFrom == null)
+            if (productTo == null)
             {
                 ModelState.AddModelError("pagoValidation", "Esta cuenta no existe");
+                return View(vm);
             }
             if (productFrom.Amount > vm.Amount)
             {
@@ -69,7 +155,7 @@ namespace WebApp.NetBanking.Controllers
                 {
                     return View(vm);
                 }
-                vm.Type = 2;
+                vm.Type = 4;
                 await _transactionsServices.Pay(vm);
             }
             else
@@ -103,17 +189,21 @@ namespace WebApp.NetBanking.Controllers
                 return View(vm);
             }
             var productFrom = await _productsServices.GetProductByIdentifier(vm.UserProductId);
-            if (productFrom == null)
+            var productTo = await _productsServices.GetProductByIdentifier(vm.RecipientProductId);
+
+            if (productTo == null)
             {
                 ModelState.AddModelError("pagoValidation", "Esta tarjeta no existe");
+                return View(vm);
             }
+
             if (productFrom.Amount > vm.Amount)
             {
                 if (!ModelState.IsValid)
                 {
                     return View(vm);
                 }
-                vm.Type = 4;
+                vm.Type = 2;
                 await _transactionsServices.Pay(vm);
             }
             else
@@ -191,10 +281,14 @@ namespace WebApp.NetBanking.Controllers
                 return View(vm);
             }
             var productFrom = await _productsServices.GetProductByIdentifier(vm.UserProductId);
-            if (productFrom == null)
+            var productTo = await _productsServices.GetProductByIdentifier(vm.RecipientProductId);
+
+            if (productTo == null)
             {
                 ModelState.AddModelError("pagoValidation", "Este prestamo no existe");
+                return View(vm);
             }
+
             if (productFrom.Amount > vm.Amount)
             {
                 if (!ModelState.IsValid)
