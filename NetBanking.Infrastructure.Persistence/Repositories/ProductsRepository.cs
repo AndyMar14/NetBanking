@@ -25,7 +25,6 @@ namespace NetBanking.Infrastructure.Persistence.Repositories
             ProductsViewModel productVm = new();
             if (product != null)
             {
-                
                 productVm.Identifier = product.Identifier;
                 productVm.IdUser = product.IdUser;
                 productVm.Amount = product.Amount;
@@ -68,7 +67,8 @@ namespace NetBanking.Infrastructure.Persistence.Repositories
                 productVm.Identifier = product.Identifier;
                 productVm.Balance = product.Balance;
                 productVm.Limit = product.Limit;
-                productVm.Amount = product.Monto;
+                productVm.Amount = product.Amount;
+                productVm.Id = product.Id;
             }
             return productVm;
         }

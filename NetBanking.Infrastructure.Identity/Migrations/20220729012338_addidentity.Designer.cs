@@ -10,8 +10,8 @@ using NetBanking.Infrastructure.Persistence.Contexts;
 namespace NetBanking.Infrastructure.Identity.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20220728134607_initial")]
-    partial class initial
+    [Migration("20220729012338_addidentity")]
+    partial class addidentity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

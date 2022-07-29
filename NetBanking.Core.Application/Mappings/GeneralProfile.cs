@@ -25,6 +25,12 @@ namespace NetBanking.Core.Application.Mappings
             CreateMap<Products, ProductsViewModel>()
                 .ReverseMap();
 
+
+            CreateMap<Products, SaveProductsViewModel>()
+                .ForMember(x => x.Products, opt => opt.Ignore())
+                .ReverseMap()
+                .ForMember(x => x.Produc, opt => opt.Ignore());
+
             CreateMap<Recipients, SaveRecipientsViewModel>()
                 .ReverseMap();
 

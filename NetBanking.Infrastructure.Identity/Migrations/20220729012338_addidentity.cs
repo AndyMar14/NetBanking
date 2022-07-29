@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NetBanking.Infrastructure.Identity.Migrations
 {
-    public partial class initial : Migration
+    public partial class addidentity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
