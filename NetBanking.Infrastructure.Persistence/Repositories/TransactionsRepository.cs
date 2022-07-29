@@ -33,16 +33,26 @@ namespace NetBanking.Infrastructure.Persistence.Repositories
 
             if (accountFrom != null && accountTo != null)
             {
-                if (vm.Type == 1)
+                if (vm.Type == 1 || vm.Type == 4 || vm.Type == 6)
                 {
                     accountFrom.Amount = (accountFrom.Amount - vm.Amount);
                     accountTo.Amount = (accountTo.Amount + vm.Amount);
                 }
-                else if (vm.Type == 2)
-                {
-
-                }
                 else if (vm.Type == 3)
+                {
+                    if (vm.Amount > accountTo.Amount)
+                    {
+                        vm.Amount = accountTo.Balance;
+                        accountFrom.Amount = (accountFrom.Amount - accountTo.Balance);
+                        accountTo.Amount = 0;
+                    }
+                    else
+                    {
+                        accountTo.Balance = (accountTo.Balance - vm.Amount);
+                        accountFrom.Amount = (accountFrom.Amount - vm.Amount);
+                    }
+                }
+                else if (vm.Type == 2)
                 {
                     if (vm.Amount > accountTo.Amount)
                     {
@@ -55,9 +65,14 @@ namespace NetBanking.Infrastructure.Persistence.Repositories
                         accountTo.Amount = (accountTo.Amount - vm.Amount);
                         accountFrom.Amount = (accountFrom.Amount - vm.Amount);
                     }
+                }else if (vm.Type == 5)
+                {
+                    
+                    accountFrom.Balance = (float)(accountFrom.Balance + (vm.Amount+((vm.Amount * 6.25 / 100))));
+                    accountTo.Amount = accountTo.Amount + +vm.Amount;
+                    
                 }
 
-                
                 var entryFrom = await _dbContext.Set<Products>().FindAsync(accountFrom.Id);
                 _dbContext.Entry(entryFrom).CurrentValues.SetValues(accountFrom);
                 await _dbContext.SaveChangesAsync();

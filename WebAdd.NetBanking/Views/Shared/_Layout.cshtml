@@ -30,7 +30,7 @@
                     <ul class="navbar-nav flex-grow-1">
                         @if (User != null)
                         {
-                            if (isClient)
+                            if (isClient && !isAdmin)
                             {
                                 <li class="nav-item">
                                     <ul>
@@ -50,10 +50,10 @@
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Recipients" asp-action="Index">Beneficiario</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Avance de Efectivo</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Pagos" asp-action="AvanceDeEfectivo">Avance de Efectivo</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Transferencia</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Pagos" asp-action="TransferenciaEntreCuentas">Transferencia</a>
                                 </li>
                             }
                             if (isAdmin)
