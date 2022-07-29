@@ -15,5 +15,6 @@ namespace NetBanking.Core.Application.Interfaces.Services
         Task<string> GenerateSequence();
         Task<ProductsViewModel> GetProductByIdentifier(string Identifire);
         Task<List<ProductsViewModel>> GetAllProductsByIdUser(string Id, FilterProductViewModel filters);
+        Task<SaveProductsViewModel> GetMainByUser(string Id);
     }
 }

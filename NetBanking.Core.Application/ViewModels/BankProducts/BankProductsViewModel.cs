@@ -9,6 +9,7 @@ namespace NetBanking.Core.Application.ViewModels.BankProducts
 {
     public class BankProductsViewModel
     {
+        public int Id { get; set; }
         public string Name { get; set; }
 
         public ICollection<ProductsViewModel> Products { get; set; }

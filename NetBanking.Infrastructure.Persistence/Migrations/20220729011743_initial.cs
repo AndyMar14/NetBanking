@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NetBanking.Infrastructure.Persistence.Migrations
 {
-    public partial class initial2 : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -44,9 +44,9 @@ namespace NetBanking.Infrastructure.Persistence.Migrations
                     MainProduct = table.Column<int>(type: "int", nullable: false),
                     IdProducType = table.Column<int>(type: "int", nullable: false),
                     Identifier = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Limit = table.Column<double>(type: "float", nullable: false),
-                    Monto = table.Column<double>(type: "float", nullable: false),
-                    Balance = table.Column<double>(type: "float", nullable: false)
+                    Limit = table.Column<float>(type: "real", nullable: false),
+                    Amount = table.Column<float>(type: "real", nullable: false),
+                    Balance = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -64,25 +64,29 @@ namespace NetBanking.Infrastructure.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IdUserProduct = table.Column<int>(type: "int", nullable: false),
-                    IdRecipientProduct = table.Column<int>(type: "int", nullable: false),
+                    IdUserProduct = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IdRecipientProduct = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Type = table.Column<int>(type: "int", nullable: false),
-                    Monto = table.Column<double>(type: "float", nullable: false),
-                    Fecha = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Amount = table.Column<float>(type: "real", nullable: false),
+                    Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ProductFromId = table.Column<int>(type: "int", nullable: true),
+                    ProducToId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Transactions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Transactions_Products_IdRecipientProduct",
-                        column: x => x.IdRecipientProduct,
+                        name: "FK_Transactions_Products_ProductFromId",
+                        column: x => x.ProductFromId,
                         principalTable: "Products",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Transactions_Products_IdUserProduct",
-                        column: x => x.IdUserProduct,
+                        name: "FK_Transactions_Products_ProducToId",
+                        column: x => x.ProducToId,
                         principalTable: "Products",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
@@ -106,14 +110,14 @@ namespace NetBanking.Infrastructure.Persistence.Migrations
                 column: "IdProducType");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Transactions_IdRecipientProduct",
+                name: "IX_Transactions_ProductFromId",
                 table: "Transactions",
-                column: "IdRecipientProduct");
+                column: "ProductFromId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Transactions_IdUserProduct",
+                name: "IX_Transactions_ProducToId",
                 table: "Transactions",
-                column: "IdUserProduct");
+                column: "ProducToId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
