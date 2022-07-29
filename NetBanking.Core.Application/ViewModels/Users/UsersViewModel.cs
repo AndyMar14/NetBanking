@@ -21,6 +21,7 @@ namespace NetBanking.Core.Application.ViewModels.Users
         public IList<string> Type { get; set; }
         public string Phone { get; set; }
         public string Role { get; set; }
+        public bool estado { get; set; }
 
         public ICollection<ProductsViewModel> Products { get; set; }
         public ICollection<RecipientsViewModel> Recipients { get; set; }

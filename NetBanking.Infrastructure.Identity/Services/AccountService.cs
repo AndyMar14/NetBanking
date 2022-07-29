@@ -77,7 +77,8 @@ namespace NetBanking.Infrastructure.Identity.Services
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Email = user.Email
+                Email = user.Email,
+                estado = user.EmailConfirmed
                 //Identification = user.Identification
             }).OrderBy(u => u.FirstName).ToListAsync();
 
@@ -129,7 +130,7 @@ namespace NetBanking.Infrastructure.Identity.Services
                 LastName = request.LastName,
                 UserName = request.UserName
             };
-
+            user.EmailConfirmed = true;
             var result = await _userManager.CreateAsync(user, request.Password);
             await _userManager.AddToRoleAsync(user, Roles.Client.ToString());
             userWithSameUserName = await _userManager.FindByIdAsync(user.Id);
@@ -154,6 +155,12 @@ namespace NetBanking.Infrastructure.Identity.Services
             return response;
         }
 
+        public async Task Delete(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            user.EmailConfirmed = false;
+            await _userManager.UpdateAsync(user);
+        }
         public async Task<string> ConfirmAccountAsync(string userId, string token)
         {
             var user = await _userManager.FindByIdAsync(userId);
