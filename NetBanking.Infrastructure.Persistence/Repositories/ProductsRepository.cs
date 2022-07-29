@@ -28,6 +28,8 @@ namespace NetBanking.Infrastructure.Persistence.Repositories
                 productVm.Identifier = product.Identifier;
                 productVm.IdUser = product.IdUser;
                 productVm.Amount = product.Amount;
+                productVm.Balance = product.Balance;
+                productVm.Limit = product.Limit;
             }
             else
             {

@@ -76,6 +76,7 @@ namespace WebApp.NetBanking.Controllers
 
             return Redirect("~/Home/Index");
         }
+        
         [HttpGet]
         public async Task<IActionResult> AvanceDeEfectivo()
         {

@@ -30,7 +30,7 @@
                             <select asp-for="UserProductId" class="form-select form-control" id="rol">
                                 @foreach (var item in ViewBag.MyProducts)
                                 {
-                                    <option value="@item.IdRecipient">@item.IdRecipient (@item.Recipient.FirstName)</option>
+                                    <option value="@item.Identifier">@item.Identifier (@item.ProductType)</option>
                                 }
                             </select>
                         </div>
@@ -44,7 +44,7 @@
                             <select asp-for="RecipientProductId" class="form-select form-control" id="rol">
                                 @foreach (var item in ViewBag.MyProducts)
                                 {
-                                    <option value="@item.IdRecipient">@item.IdRecipient (@item.Recipient.FirstName)</option>
+                                    <option value="@item.Identifier">@item.Identifier (@item.ProductType)</option>
                                 }
                             </select>
                         </div>
