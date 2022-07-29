@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using NetBanking.Core.Application.Interfaces.Services;
+using NetBanking.Core.Application.ViewModels.Products;
+using NetBanking.Core.Application.ViewModels.Transactions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,27 +14,28 @@ namespace WebAdd.NetBanking.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ITransactionsService _transactionsServices;
+        private readonly IProductsService _productsServices;
+        public HomeController(ITransactionsService transactionsServices, IProductsService productsServices)
         {
-            _logger = logger;
+            _transactionsServices = transactionsServices;
+            _productsServices = productsServices;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            List<TransactionsViewModel> trans = await _transactionsServices.GetAllViewModel(); 
+            List<TransactionsViewModel> Pago = await _transactionsServices.GetAllViewModel();
+            List<ProductsViewModel> Products = await _productsServices.GetAllViewModel();
+            ViewBag.Transferencias = trans.Count;
+            ViewBag.Pagos = Pago.Count;
+            ViewBag.Productos= Products.Count;
             return View();
         }
 
         public IActionResult Privacy()
         {
             return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
